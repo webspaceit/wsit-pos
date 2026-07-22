@@ -15,12 +15,6 @@ class LandingPageController extends Controller
 
         return Inertia::render('welcome', [
             'landing' => $landing,
-            'auth' => [
-                'user' => auth()->user() ? [
-                    'id' => auth()->user()->id,
-                    'name' => auth()->user()->name,
-                ] : null,
-            ],
         ]);
     }
 }
