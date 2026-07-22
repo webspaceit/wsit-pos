@@ -121,6 +121,11 @@ const adminNavItems: NavItem[] = [
         href: '/users',
         icon: ShieldCheck,
     },
+    {
+        title: 'Landing Page',
+        href: '/settings/landing-page',
+        icon: Settings,
+    },
 ];
 
 export function AppSidebar() {

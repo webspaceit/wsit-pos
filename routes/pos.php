@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\LandingPageSettingsController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
@@ -81,4 +82,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Business Settings
     Route::get('settings/business', [SettingController::class, 'index'])->name('settings.business');
     Route::put('settings/business', [SettingController::class, 'update'])->name('settings.business.update');
+
+    // Landing Page Settings
+    Route::get('settings/landing-page', [LandingPageSettingsController::class, 'index'])->name('admin.landing-page');
+    Route::put('settings/landing-page', [LandingPageSettingsController::class, 'update'])->name('admin.landing-page.update');
 });

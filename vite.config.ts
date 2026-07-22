@@ -26,6 +26,7 @@ export default defineConfig({
         tailwindcss(),
         wayfinder({
             formVariants: true,
+            phpBinary: process.env.PHP_BINARY ?? 'php',
         }),
     ],
 });
