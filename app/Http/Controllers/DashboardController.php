@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Expense;
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\SaleItem;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
