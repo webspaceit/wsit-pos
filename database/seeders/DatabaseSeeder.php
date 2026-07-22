@@ -88,5 +88,7 @@ class DatabaseSeeder extends Seeder
         foreach ($settings as $setting) {
             Setting::create($setting);
         }
+
+        $this->call(SampleDataSeeder::class);
     }
 }
