@@ -1,12 +1,10 @@
 import { Link, usePage } from '@inertiajs/react';
 import {
     BarChart3,
-    BookOpen,
     Building2,
     Calculator,
     ShoppingCart,
     CreditCard,
-    FolderGit2,
     LayoutGrid,
     Package,
     Receipt,
@@ -21,7 +19,6 @@ import {
     ShoppingCart as PosIcon,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
-import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import {
@@ -126,19 +123,6 @@ const adminNavItems: NavItem[] = [
     },
 ];
 
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Repository',
-        href: 'https://github.com/webspaceit/wsit-pos',
-        icon: FolderGit2,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs',
-        icon: BookOpen,
-    },
-];
-
 export function AppSidebar() {
     const { auth } = usePage().props;
     const userRoles = auth?.user?.roles ?? [];
@@ -196,7 +180,6 @@ export function AppSidebar() {
             </SidebarContent>
 
             <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto" />
                 <NavUser />
             </SidebarFooter>
         </Sidebar>
