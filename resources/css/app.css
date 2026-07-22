@@ -59,6 +59,20 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+
+    --color-brand: #007C47;
+    --color-brand-light: #00A65A;
+    --color-brand-dark: #005C34;
+    --color-brand-50: #f0fdf4;
+    --color-brand-100: #dcfce7;
+    --color-brand-200: #bbf7d0;
+    --color-brand-300: #86efac;
+    --color-brand-400: #4ade80;
+    --color-brand-500: #007C47;
+    --color-brand-600: #007C47;
+    --color-brand-700: #005C34;
+    --color-brand-800: #004729;
+    --color-brand-900: #00331f;
 }
 
 :root {

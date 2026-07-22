@@ -45,18 +45,18 @@ export default function Dashboard({
 
             <div className="flex h-full flex-1 flex-col gap-6 overflow-x-auto p-4 lg:p-6">
                 {/* Welcome Banner */}
-                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 p-6 text-white shadow-lg">
+                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-brand to-brand-dark p-6 text-white shadow-lg">
                     <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10" />
                     <div className="absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-white/5" />
                     <div className="relative">
                         <h1 className="text-2xl font-bold">Welcome back!</h1>
-                        <p className="mt-1 text-indigo-100">
+                        <p className="mt-1 text-green-100">
                             Here&apos;s what&apos;s happening with your store today.
                         </p>
                         <div className="mt-4 flex flex-wrap gap-3">
                             <Link
                                 href="/pos"
-                                className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-indigo-600 shadow transition hover:bg-indigo-50"
+                                className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-brand shadow transition hover:bg-brand-50"
                             >
                                 <ShoppingCart className="h-4 w-4" />
                                 Open POS Terminal
@@ -81,7 +81,7 @@ export default function Dashboard({
                         icon={DollarSign}
                         trend="+12%"
                         trendUp={true}
-                        gradient="from-emerald-500 to-teal-500"
+                        gradient="from-brand to-brand-light"
                     />
                     <StatCard
                         title="Monthly Sales"
@@ -90,7 +90,7 @@ export default function Dashboard({
                         icon={TrendingUp}
                         trend="+8%"
                         trendUp={true}
-                        gradient="from-blue-500 to-indigo-500"
+                        gradient="from-brand-dark to-brand"
                     />
                     <StatCard
                         title="Monthly Profit"
@@ -99,7 +99,7 @@ export default function Dashboard({
                         icon={monthProfit >= 0 ? TrendingUp : TrendingDown}
                         trend={monthProfit >= 0 ? '+' : ''}
                         trendUp={monthProfit >= 0}
-                        gradient={monthProfit >= 0 ? 'from-green-500 to-emerald-500' : 'from-red-500 to-rose-500'}
+                        gradient={monthProfit >= 0 ? 'from-brand to-brand-light' : 'from-red-500 to-rose-500'}
                     />
                     <StatCard
                         title="Total Due"
@@ -125,8 +125,8 @@ export default function Dashboard({
                         title="Due Collected"
                         value={formatCurrency(dueCollection)}
                         icon={CreditCard}
-                        color="text-emerald-500"
-                        bg="bg-emerald-50"
+                        color="text-brand"
+                        bg="bg-brand-50"
                     />
                     <MiniStatCard
                         title="Net Income"
@@ -147,7 +147,7 @@ export default function Dashboard({
                                 </div>
                                 <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Low Stock</h3>
                             </div>
-                            <Link href="/stock" className="text-xs font-medium text-indigo-600 hover:text-indigo-700">
+                            <Link href="/stock" className="text-xs font-medium text-brand hover:text-brand-dark">
                                 View All
                             </Link>
                         </div>
@@ -194,12 +194,12 @@ export default function Dashboard({
                     <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
                         <div className="mb-4 flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                                <div className="rounded-lg bg-indigo-100 p-1.5">
-                                    <ShoppingCart className="h-4 w-4 text-indigo-600" />
+                                <div className="rounded-lg bg-brand-100 p-1.5">
+                                    <ShoppingCart className="h-4 w-4 text-brand" />
                                 </div>
                                 <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Recent Sales</h3>
                             </div>
-                            <Link href="/sales" className="text-xs font-medium text-indigo-600 hover:text-indigo-700">
+                            <Link href="/sales" className="text-xs font-medium text-brand hover:text-brand-dark">
                                 View All
                             </Link>
                         </div>
@@ -238,12 +238,12 @@ export default function Dashboard({
                     <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
                         <div className="mb-4 flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                                <div className="rounded-lg bg-purple-100 p-1.5">
-                                    <Zap className="h-4 w-4 text-purple-600" />
+                                <div className="rounded-lg bg-brand-100 p-1.5">
+                                    <Zap className="h-4 w-4 text-brand" />
                                 </div>
                                 <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Top Products</h3>
                             </div>
-                            <Link href="/reports/sales" className="text-xs font-medium text-indigo-600 hover:text-indigo-700">
+                            <Link href="/reports/sales" className="text-xs font-medium text-brand hover:text-brand-dark">
                                 View Reports
                             </Link>
                         </div>
@@ -271,7 +271,7 @@ export default function Dashboard({
                                                 <div className="mt-1 flex items-center gap-2">
                                                     <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-gray-100">
                                                         <div
-                                                            className="h-full rounded-full bg-purple-400"
+                                                            className="h-full rounded-full bg-brand"
                                                             style={{ width: `${(item.total_qty / maxQty) * 100}%` }}
                                                         />
                                                     </div>

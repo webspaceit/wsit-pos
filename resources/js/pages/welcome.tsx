@@ -52,7 +52,7 @@ export default function Welcome() {
                 <nav className="fixed top-0 z-50 w-full border-b border-gray-100 bg-white/80 backdrop-blur-md">
                     <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
                         <Link href="/" className="flex items-center gap-2">
-                            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-600">
+                            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand">
                                 <span className="text-lg font-bold text-white">W</span>
                             </div>
                             <span className="text-xl font-bold text-gray-900">WSIT POS</span>
@@ -72,7 +72,7 @@ export default function Welcome() {
                             {auth?.user ? (
                                 <Link
                                     href="/dashboard"
-                                    className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700"
+                                    className="rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-dark"
                                 >
                                     Dashboard
                                 </Link>
@@ -86,7 +86,7 @@ export default function Welcome() {
                                     </Link>
                                     <Link
                                         href={login()}
-                                        className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700"
+                                        className="rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-dark"
                                     >
                                         Get Started
                                     </Link>
@@ -97,15 +97,15 @@ export default function Welcome() {
                 </nav>
 
                 {/* Hero Section */}
-                <section className="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-purple-50 pt-24">
+                <section className="relative overflow-hidden bg-gradient-to-br from-brand-50 via-white to-green-50 pt-24">
                     <div className="absolute inset-0">
-                        <div className="absolute -left-40 -top-40 h-80 w-80 rounded-full bg-indigo-100 opacity-60 blur-3xl" />
-                        <div className="absolute -bottom-40 -right-40 h-80 w-80 rounded-full bg-purple-100 opacity-60 blur-3xl" />
+                        <div className="absolute -left-40 -top-40 h-80 w-80 rounded-full bg-brand-100 opacity-60 blur-3xl" />
+                        <div className="absolute -bottom-40 -right-40 h-80 w-80 rounded-full bg-green-100 opacity-60 blur-3xl" />
                     </div>
                     <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
                         <div className="text-center">
-                            <span className="inline-flex items-center gap-2 rounded-full bg-indigo-100 px-4 py-1.5 text-sm font-medium text-indigo-700">
-                                <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
+                            <span className="inline-flex items-center gap-2 rounded-full bg-brand-100 px-4 py-1.5 text-sm font-medium text-brand">
+                                <span className="h-1.5 w-1.5 rounded-full bg-brand" />
                                 Made for Bangladesh
                             </span>
                             <h1 className="mt-8 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl">
@@ -117,7 +117,7 @@ export default function Welcome() {
                             <div className="mt-10 flex items-center justify-center gap-4">
                                 <Link
                                     href={login()}
-                                    className="rounded-xl bg-indigo-600 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-indigo-200 transition hover:bg-indigo-700 hover:shadow-xl"
+                                    className="rounded-xl bg-brand px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-brand/25 transition hover:bg-brand-dark hover:shadow-xl"
                                 >
                                     {l.hero_cta_text}
                                 </Link>
@@ -144,12 +144,12 @@ export default function Welcome() {
                                             <div className="grid grid-cols-4 gap-3">
                                                 {['Miniket Rice', 'Coca-Cola', 'Oreo', 'Lifebuoy', 'Nescafe', 'Lays', 'Colgate', 'Head & Shoulders'].map(
                                                     (item) => (
-                                                        <div key={item} className="rounded-lg border border-gray-100 p-3 text-center hover:border-indigo-200 hover:bg-indigo-50 transition">
-                                                            <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 text-sm font-bold">
+                                                        <div key={item} className="rounded-lg border border-gray-100 p-3 text-center hover:border-brand-200 hover:bg-brand-50 transition">
+                                                            <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand text-sm font-bold">
                                                                 {item[0]}
                                                             </div>
                                                             <p className="text-xs font-medium text-gray-700 truncate">{item}</p>
-                                                            <p className="text-xs text-indigo-600 font-semibold">৳{Math.floor(Math.random() * 200 + 30)}</p>
+                                                            <p className="text-xs text-brand font-semibold">৳{Math.floor(Math.random() * 200 + 30)}</p>
                                                         </div>
                                                     ),
                                                 )}
@@ -171,10 +171,10 @@ export default function Welcome() {
                                                 <div className="border-t border-gray-100 pt-2 mt-2">
                                                     <div className="flex justify-between font-semibold text-gray-900">
                                                         <span>Total</span>
-                                                        <span className="text-indigo-600">৳450</span>
+                                                        <span className="text-brand font-semibold">৳450</span>
                                                     </div>
                                                 </div>
-                                                <button className="mt-3 w-full rounded-lg bg-indigo-600 py-2 text-sm font-semibold text-white">
+                                                <button className="mt-3 w-full rounded-lg bg-brand py-2 text-sm font-semibold text-white">
                                                     Pay with bKash
                                                 </button>
                                             </div>
@@ -197,9 +197,9 @@ export default function Welcome() {
                             {l.features?.map((feature) => (
                                 <div
                                     key={feature.title}
-                                    className="group rounded-2xl border border-gray-100 p-8 transition hover:border-indigo-100 hover:bg-indigo-50/50 hover:shadow-lg"
+                                    className="group rounded-2xl border border-gray-100 p-8 transition hover:border-brand-100 hover:bg-brand-50/50 hover:shadow-lg"
                                 >
-                                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-100 text-indigo-600 transition group-hover:bg-indigo-600 group-hover:text-white">
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 text-brand transition group-hover:bg-brand group-hover:text-white">
                                         <span className="text-xl font-bold">{feature.icon[0]}</span>
                                     </div>
                                     <h3 className="mt-5 text-lg font-semibold text-gray-900">{feature.title}</h3>
@@ -223,12 +223,12 @@ export default function Welcome() {
                                     key={plan.name}
                                     className={`relative rounded-2xl border-2 p-8 transition ${
                                         plan.highlighted
-                                            ? 'border-indigo-600 bg-white shadow-xl shadow-indigo-100'
+                                            ? 'border-brand bg-white shadow-xl shadow-brand/10'
                                             : 'border-gray-200 bg-white'
                                     }`}
                                 >
                                     {plan.highlighted && (
-                                        <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-indigo-600 px-4 py-1 text-xs font-semibold text-white">
+                                        <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-brand px-4 py-1 text-xs font-semibold text-white">
                                             Most Popular
                                         </div>
                                     )}
@@ -242,7 +242,7 @@ export default function Welcome() {
                                     <ul className="mt-8 space-y-3">
                                         {plan.features.map((feature) => (
                                             <li key={feature} className="flex items-center gap-3 text-sm text-gray-600">
-                                                <svg className="h-5 w-5 shrink-0 text-indigo-600" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                                                <svg className="h-5 w-5 shrink-0 text-brand" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                                 </svg>
                                                 {feature}
@@ -251,11 +251,11 @@ export default function Welcome() {
                                     </ul>
                                     <Link
                                         href={login()}
-                                        className={`mt-8 block w-full rounded-xl py-3 text-center text-sm font-semibold transition ${
-                                            plan.highlighted
-                                                ? 'bg-indigo-600 text-white hover:bg-indigo-700'
-                                                : 'border border-gray-200 text-gray-700 hover:bg-gray-50'
-                                        }`}
+                                            className={`mt-8 block w-full rounded-xl py-3 text-center text-sm font-semibold transition ${
+                                                plan.highlighted
+                                                    ? 'bg-brand text-white hover:bg-brand-dark'
+                                                    : 'border border-gray-200 text-gray-700 hover:bg-gray-50'
+                                            }`}
                                     >
                                         Get Started
                                     </Link>
@@ -283,7 +283,7 @@ export default function Welcome() {
                                     </div>
                                     <p className="mt-4 text-sm leading-6 text-gray-600">"{testimonial.text}"</p>
                                     <div className="mt-6 flex items-center gap-3">
-                                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-sm font-bold text-indigo-600">
+                                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-100 text-sm font-bold text-brand">
                                             {testimonial.name[0]}
                                         </div>
                                         <div>
@@ -298,20 +298,20 @@ export default function Welcome() {
                 </section>
 
                 {/* CTA Section */}
-                <section className="bg-indigo-600 py-20">
+                <section className="bg-brand py-20">
                     <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
                         <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">{l.cta_title}</h2>
-                        <p className="mx-auto mt-4 max-w-2xl text-lg text-indigo-100">{l.cta_subtitle}</p>
+                        <p className="mx-auto mt-4 max-w-2xl text-lg text-brand-100">{l.cta_subtitle}</p>
                         <div className="mt-8 flex items-center justify-center gap-4">
                             <Link
                                 href={login()}
-                                className="rounded-xl bg-white px-8 py-3.5 text-base font-semibold text-indigo-600 shadow-lg transition hover:bg-gray-50"
+                                className="rounded-xl bg-white px-8 py-3.5 text-base font-semibold text-brand shadow-lg transition hover:bg-gray-50"
                             >
                                 {l.cta_button_text}
                             </Link>
                             <a
                                 href="#pricing"
-                                className="rounded-xl border border-indigo-400 px-8 py-3.5 text-base font-semibold text-white transition hover:bg-indigo-700"
+                                className="rounded-xl border border-brand-200 px-8 py-3.5 text-base font-semibold text-white transition hover:bg-brand-dark"
                             >
                                 View Pricing
                             </a>
@@ -324,7 +324,7 @@ export default function Welcome() {
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
                             <div className="flex items-center gap-2">
-                                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600">
+                                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand">
                                     <span className="text-sm font-bold text-white">W</span>
                                 </div>
                                 <span className="text-sm font-semibold text-gray-900">{l.footer_text}</span>
