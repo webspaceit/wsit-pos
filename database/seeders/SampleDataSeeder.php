@@ -17,12 +17,13 @@ use App\Models\Unit;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class SampleDataSeeder extends Seeder
 {
     public function run(): void
     {
-        $branch1 = Branch::where('name', 'Main Branch - Gulshan')->first();
+        $branch1 = Branch::where('name', 'Main Branch')->first();
         $branch2 = Branch::where('name', 'Dhanmondi Branch')->first();
         $admin = User::where('email', 'admin@wsit-pos.com')->first();
         $cashier = User::where('email', 'cashier@wsit-pos.com')->first();

@@ -50,6 +50,12 @@ class DatabaseSeeder extends Seeder
             'is_active' => true,
         ]);
 
+        Branch::create([
+            'name' => 'Dhanmondi Branch',
+            'address' => 'Dhanmondi, Dhaka',
+            'is_active' => true,
+        ]);
+
         $admin = User::create([
             'name' => 'Admin',
             'email' => 'admin@wsit-pos.com',
