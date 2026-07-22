@@ -49,10 +49,10 @@ class Product extends Model
     protected static function booted(): void
     {
         static::creating(function (Product $product) {
-            if (empty($product->sku)) {
+            if (! $product->getAttribute('sku')) {
                 $product->sku = 'SKU-'.strtoupper(Str::random(8));
             }
-            if (empty($product->barcode)) {
+            if (! $product->getAttribute('barcode')) {
                 $product->barcode = (string) rand(1000000000000, 9999999999999);
             }
         });
