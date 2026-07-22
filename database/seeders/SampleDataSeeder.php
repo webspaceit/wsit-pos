@@ -257,7 +257,7 @@ class SampleDataSeeder extends Seeder
         $suppliers = Supplier::all();
         $products = Product::all();
 
-        for ($d = 60; $d >= 0; $d += rand(3, 7)) {
+        for ($d = 60; $d >= 0; $d -= rand(3, 7)) {
             $date = Carbon::today()->subDays($d);
             $numItems = rand(3, 8);
             $items = $products->random($numItems);
