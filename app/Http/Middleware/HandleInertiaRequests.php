@@ -2,46 +2,43 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Branch;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
 {
-    /**
-     * The root template that's loaded on the first page visit.
-     *
-     * @see https://inertiajs.com/server-side-setup#root-template
-     *
-     * @var string
-     */
     protected $rootView = 'app';
 
-    /**
-     * Determines the current asset version.
-     *
-     * @see https://inertiajs.com/asset-versioning
-     */
     public function version(Request $request): ?string
     {
         return parent::version($request);
     }
 
-    /**
-     * Define the props that are shared by default.
-     *
-     * @see https://inertiajs.com/shared-data
-     *
-     * @return array<string, mixed>
-     */
     public function share(Request $request): array
     {
         return [
             ...parent::share($request),
             'name' => config('app.name'),
             'auth' => [
-                'user' => $request->user(),
+                'user' => $request->user() ? [
+                    'id' => $request->user()->id,
+                    'name' => $request->user()->name,
+                    'email' => $request->user()->email,
+                    'phone' => $request->user()->phone,
+                    'branch_id' => $request->user()->branch_id,
+                    'is_active' => $request->user()->is_active,
+                    'roles' => $request->user()->roles->pluck('name'),
+                    'branch' => $request->user()->branch,
+                ] : null,
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            'settings' => $request->user() ? Setting::getAll() : [],
+            'branches' => $request->user() ? Branch::where('is_active', true)->orderBy('name')->get() : [],
+            'currentBranch' => $request->user() && session('branch_id')
+                ? Branch::find(session('branch_id'))
+                : null,
         ];
     }
 }

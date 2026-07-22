@@ -1,5 +1,25 @@
-import { Link } from '@inertiajs/react';
-import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-react';
+import { Link, usePage } from '@inertiajs/react';
+import {
+    BarChart3,
+    BookOpen,
+    Building2,
+    Calculator,
+    ShoppingCart,
+    CreditCard,
+    FolderGit2,
+    LayoutGrid,
+    Package,
+    Receipt,
+    Settings,
+    ShieldCheck,
+    Tag,
+    TrendingDown,
+    TrendingUp,
+    Truck,
+    Users,
+    Warehouse,
+    ShoppingCart as PosIcon,
+} from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
@@ -8,6 +28,8 @@ import {
     Sidebar,
     SidebarContent,
     SidebarFooter,
+    SidebarGroup,
+    SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
@@ -16,28 +38,113 @@ import {
 import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
 
-const mainNavItems: NavItem[] = [
+const posNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
-        href: dashboard(),
-        icon: LayoutGrid,
+        title: 'POS Terminal',
+        href: '/pos',
+        icon: PosIcon,
+    },
+];
+
+const salesNavItems: NavItem[] = [
+    {
+        title: 'Sales',
+        href: '/sales',
+        icon: TrendingUp,
+    },
+    {
+        title: 'Due Collection',
+        href: '/due-collections',
+        icon: CreditCard,
+    },
+];
+
+const inventoryNavItems: NavItem[] = [
+    {
+        title: 'Products',
+        href: '/products',
+        icon: Package,
+    },
+    {
+        title: 'Categories',
+        href: '/categories',
+        icon: Tag,
+    },
+    {
+        title: 'Units',
+        href: '/units',
+        icon: Calculator,
+    },
+    {
+        title: 'Stock',
+        href: '/stock',
+        icon: Warehouse,
+    },
+];
+
+const purchaseNavItems: NavItem[] = [
+    {
+        title: 'Purchases',
+        href: '/purchases',
+        icon: ShoppingCart,
+    },
+    {
+        title: 'Suppliers',
+        href: '/suppliers',
+        icon: Truck,
+    },
+];
+
+const financeNavItems: NavItem[] = [
+    {
+        title: 'Customers',
+        href: '/customers',
+        icon: Users,
+    },
+    {
+        title: 'Expenses',
+        href: '/expenses',
+        icon: TrendingDown,
+    },
+];
+
+const adminNavItems: NavItem[] = [
+    {
+        title: 'Reports',
+        href: '/reports',
+        icon: BarChart3,
+    },
+    {
+        title: 'Branches',
+        href: '/branches',
+        icon: Building2,
+    },
+    {
+        title: 'Users',
+        href: '/users',
+        icon: ShieldCheck,
     },
 ];
 
 const footerNavItems: NavItem[] = [
     {
         title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
+        href: 'https://github.com/webspaceit/wsit-pos',
         icon: FolderGit2,
     },
     {
         title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
+        href: 'https://laravel.com/docs',
         icon: BookOpen,
     },
 ];
 
 export function AppSidebar() {
+    const { auth } = usePage().props;
+    const userRoles = auth?.user?.roles ?? [];
+    const isAdmin = userRoles.includes('admin');
+    const isManager = userRoles.includes('manager');
+
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -53,7 +160,39 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={[{ title: 'Dashboard', href: dashboard(), icon: LayoutGrid }]} />
+
+                <SidebarGroup>
+                    <SidebarGroupLabel>POS</SidebarGroupLabel>
+                    <NavMain items={posNavItems} />
+                </SidebarGroup>
+
+                <SidebarGroup>
+                    <SidebarGroupLabel>Sales</SidebarGroupLabel>
+                    <NavMain items={salesNavItems} />
+                </SidebarGroup>
+
+                <SidebarGroup>
+                    <SidebarGroupLabel>Inventory</SidebarGroupLabel>
+                    <NavMain items={inventoryNavItems} />
+                </SidebarGroup>
+
+                <SidebarGroup>
+                    <SidebarGroupLabel>Purchasing</SidebarGroupLabel>
+                    <NavMain items={purchaseNavItems} />
+                </SidebarGroup>
+
+                <SidebarGroup>
+                    <SidebarGroupLabel>Finance</SidebarGroupLabel>
+                    <NavMain items={financeNavItems} />
+                </SidebarGroup>
+
+                {(isAdmin || isManager) && (
+                    <SidebarGroup>
+                        <SidebarGroupLabel>Administration</SidebarGroupLabel>
+                        <NavMain items={adminNavItems} />
+                    </SidebarGroup>
+                )}
             </SidebarContent>
 
             <SidebarFooter>
