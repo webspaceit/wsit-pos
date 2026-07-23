@@ -164,5 +164,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ChartOfAccountsSeeder::class);
         $this->call(SampleDataSeeder::class);
+        $this->call(FullSampleSeeder::class);
     }
 }

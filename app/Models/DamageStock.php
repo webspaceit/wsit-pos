@@ -24,6 +24,8 @@ class DamageStock extends Model
 {
     use HasFactory;
 
+    protected $table = 'damage_stock';
+
     protected $fillable = [
         'branch_id', 'product_id', 'user_id', 'reference_no',
         'quantity', 'unit_cost', 'total_loss', 'date', 'reason', 'notes',
