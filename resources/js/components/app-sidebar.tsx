@@ -21,6 +21,7 @@ import {
     Zap,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
+import { GroupLabel } from '@/components/group-label';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import {
@@ -34,6 +35,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarSeparator,
+    useSidebar,
 } from '@/components/ui/sidebar';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { dashboard } from '@/routes';
@@ -124,21 +126,14 @@ const adminNavItems: NavItem[] = [
     },
 ];
 
-function GroupLabel({ icon: Icon, children }: { icon: React.ElementType; children: React.ReactNode }) {
-    return (
-        <SidebarGroupLabel className="gap-2 text-xs font-bold uppercase tracking-widest text-brand dark:text-brand-400">
-            <Icon className="h-4 w-4" />
-            {children}
-        </SidebarGroupLabel>
-    );
-}
-
 export function AppSidebar() {
     const { auth } = usePage().props;
     const userRoles = auth?.user?.roles ?? [];
     const isAdmin = userRoles.includes('admin');
     const isManager = userRoles.includes('manager');
     const { isCurrentUrl } = useCurrentUrl();
+    const { state } = useSidebar();
+    const isCollapsed = state === 'collapsed';
 
     return (
         <Sidebar collapsible="icon" variant="inset">
@@ -164,7 +159,10 @@ export function AppSidebar() {
 
                 {/* POS Terminal — highlighted */}
                 <SidebarGroup>
-                    <GroupLabel icon={Zap}>Quick Action</GroupLabel>
+                    <SidebarGroupLabel className="gap-2 text-xs font-bold uppercase tracking-widest text-brand dark:text-brand-400">
+                        <Zap className="h-4 w-4" />
+                        {!isCollapsed && 'Quick Action'}
+                    </SidebarGroupLabel>
                     <SidebarMenu>
                         <SidebarMenuItem>
                             <SidebarMenuButton
@@ -186,7 +184,7 @@ export function AppSidebar() {
 
                 {/* Sales */}
                 <SidebarGroup>
-                    <GroupLabel icon={TrendingUp}>Sales</GroupLabel>
+                    <GroupLabel icon={TrendingUp} items={salesNavItems}>Sales</GroupLabel>
                     <NavMain items={salesNavItems} />
                 </SidebarGroup>
 
@@ -194,7 +192,7 @@ export function AppSidebar() {
 
                 {/* Inventory */}
                 <SidebarGroup>
-                    <GroupLabel icon={Package}>Inventory</GroupLabel>
+                    <GroupLabel icon={Package} items={inventoryNavItems}>Inventory</GroupLabel>
                     <NavMain items={inventoryNavItems} />
                 </SidebarGroup>
 
@@ -202,7 +200,7 @@ export function AppSidebar() {
 
                 {/* Purchasing */}
                 <SidebarGroup>
-                    <GroupLabel icon={Truck}>Purchasing</GroupLabel>
+                    <GroupLabel icon={Truck} items={purchaseNavItems}>Purchasing</GroupLabel>
                     <NavMain items={purchaseNavItems} />
                 </SidebarGroup>
 
@@ -210,7 +208,7 @@ export function AppSidebar() {
 
                 {/* Finance */}
                 <SidebarGroup>
-                    <GroupLabel icon={DollarSign}>Finance</GroupLabel>
+                    <GroupLabel icon={DollarSign} items={financeNavItems}>Finance</GroupLabel>
                     <NavMain items={financeNavItems} />
                 </SidebarGroup>
 
@@ -219,7 +217,7 @@ export function AppSidebar() {
                     <>
                         <SidebarSeparator />
                         <SidebarGroup>
-                            <GroupLabel icon={ShieldCheck}>Administration</GroupLabel>
+                            <GroupLabel icon={ShieldCheck} items={adminNavItems}>Administration</GroupLabel>
                             <NavMain items={adminNavItems} />
                         </SidebarGroup>
                     </>
