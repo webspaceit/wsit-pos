@@ -7,7 +7,6 @@ import {
     CreditCard as CollectIcon,
     DollarSign,
     LayoutGrid,
-    Menu,
     Package,
     Settings,
     ShieldCheck,
@@ -19,12 +18,11 @@ import {
     Truck,
     Users,
     Warehouse,
-    Zap,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
-import { SitemapGroupLabel } from '@/components/sitemap-group-label';
+import { GroupLabel } from '@/components/group-label';
 import {
     Sidebar,
     SidebarContent,
@@ -144,14 +142,17 @@ export function AppSidebar() {
 
                 <SidebarSeparator />
 
-                {/* Quick Action — sitemap flyout */}
-                <SidebarGroup>
-                    <SitemapGroupLabel
-                        icon={Menu}
-                        label="Quick Action"
-                        sections={visibleSections}
-                    />
-                </SidebarGroup>
+                {/* Navigation groups */}
+                {visibleSections.map((section, i) => (
+                    <SidebarGroup key={section.title}>
+                        <GroupLabel
+                            icon={section.icon}
+                            items={isCollapsed ? [] : (section.items as NavItem[])}
+                        >
+                            {section.title}
+                        </GroupLabel>
+                    </SidebarGroup>
+                ))}
             </SidebarContent>
 
             <SidebarFooter>
