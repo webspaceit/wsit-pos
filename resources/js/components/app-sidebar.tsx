@@ -126,7 +126,7 @@ const allSections = [
 
 export function AppSidebar() {
     const { auth } = usePage().props;
-    const userRoles = auth?.user?.roles ?? [];
+    const userRoles = (auth?.user?.roles as string[]) ?? [];
     const isAdmin = userRoles.includes('admin');
     const isManager = userRoles.includes('manager');
     const { isCurrentUrl } = useCurrentUrl();

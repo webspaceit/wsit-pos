@@ -12,7 +12,7 @@ export default function CategoriesIndex({ categories, parentCategories }: Props)
     const { data, setData, post, put, processing, errors, reset } = useForm({ name: '', description: '', parent_id: '', is_active: true });
 
     const openCreate = () => { reset(); setShowCreate(true); };
-    const openEdit = (c: Category) => { setData({ name: c.name, description: '', parent_id: c.parent?.id ?? '', is_active: c.is_active }); setEditing(c); };
+    const openEdit = (c: Category) => { setData({ name: c.name, description: '', parent_id: String(c.parent?.id ?? ''), is_active: c.is_active }); setEditing(c); };
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
         if (editing) { put(`/categories/${editing.id}`, { onSuccess: () => { setEditing(null); reset(); } }); }
