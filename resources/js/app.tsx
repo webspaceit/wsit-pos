@@ -16,12 +16,13 @@ function PassThrough({ children }: PropsWithChildren) {
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
     layout: (name) => {
+        const settingsPages = ['settings/business', 'settings/profile', 'settings/security', 'settings/appearance'];
         switch (true) {
             case name === 'welcome':
                 return PassThrough;
             case name.startsWith('auth/'):
                 return AuthLayout;
-            case name.startsWith('settings/'):
+            case settingsPages.includes(name):
                 return [AppLayout, SettingsLayout];
             default:
                 return PassThrough;
