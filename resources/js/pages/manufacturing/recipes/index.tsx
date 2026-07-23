@@ -30,7 +30,7 @@ export default function Recipes({ recipes, products, filters }: { recipes: { dat
         (items[i] as any)[field] = value;
         if (field === 'product_id') {
             const product = products.find((p: any) => String(p.id) === String(value));
-            if (product) items[i].unit_cost = Number(product.unit_price);
+            if (product) items[i].unit_cost = Number(product.purchase_price);
         }
         setData('items', items);
     };

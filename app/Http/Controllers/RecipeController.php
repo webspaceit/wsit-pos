@@ -20,7 +20,7 @@ class RecipeController extends Controller
 
         return Inertia::render('manufacturing/recipes/index', [
             'recipes' => $query->latest()->paginate(20),
-            'products' => fn () => Product::all(['id', 'name', 'unit_price']),
+            'products' => fn () => Product::all(['id', 'name', 'purchase_price']),
             'filters' => $request->only(['search']),
         ]);
     }
