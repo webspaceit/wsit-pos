@@ -32,6 +32,11 @@ const sidebarNavItems: NavItem[] = [
         icon: null,
     },
     {
+        title: 'POS Settings',
+        href: '/settings/pos-settings',
+        icon: null,
+    },
+    {
         title: 'Landing Page',
         href: '/settings/landing-page',
         icon: null,
