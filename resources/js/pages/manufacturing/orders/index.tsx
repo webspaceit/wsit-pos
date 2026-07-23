@@ -1,6 +1,7 @@
 import { Head, router, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 import AppLayout from '@/layouts/app-layout';
+import { formatDate } from '@/lib/pos-utils';
 import { type BreadcrumbItem } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -55,7 +56,7 @@ export default function ProductionOrders({ orders, recipes, branches, filters }:
                             {orders.data.map((o: any) => (
                                 <tr key={o.id} className="border-t">
                                     <td className="px-4 py-3 font-mono text-sm">{o.reference_no}</td>
-                                    <td className="px-4 py-3">{o.date}</td>
+                                    <td className="px-4 py-3">{formatDate(o.date)}</td>
                                     <td className="px-4 py-3">{o.recipe?.name}</td>
                                     <td className="px-4 py-3">{o.branch?.name}</td>
                                     <td className="px-4 py-3">{o.quantity_to_produce}</td>
