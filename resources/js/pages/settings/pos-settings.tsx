@@ -18,7 +18,7 @@ export default function PosSettings({ settings }: Props) {
     const s = settings;
 
     return (
-        <AppLayout breadcrumbs={[{ title: 'Settings', href: '/settings' }, { title: 'POS Settings', href: '/settings/pos-settings' }]}>
+        <AppLayout breadcrumbs={[{ title: 'Dashboard', href: '/dashboard' }, { title: 'POS Settings', href: '/pos-settings' }]}>
             <Head title="POS Settings" />
             <div className="p-4 max-w-3xl space-y-4">
                 <h1 className="text-lg font-semibold">POS Settings</h1>
@@ -39,7 +39,7 @@ export default function PosSettings({ settings }: Props) {
 
 function BarcodeTab({ defaults }: { defaults: Record<string, string> }) {
     const { data, setData, post, processing } = useForm({ group: 'barcode', prefix: defaults.prefix || 'PRD', length: defaults.length || '13', type: defaults.type || 'EAN13' });
-    const save = (e: React.FormEvent) => { e.preventDefault(); post('/settings/pos-settings'); };
+    const save = (e: React.FormEvent) => { e.preventDefault(); post('/pos-settings'); };
 
     return (
         <form onSubmit={save}>
@@ -71,7 +71,7 @@ function InvoiceTab({ defaults }: { defaults: Record<string, string> }) {
         show_tax: defaults.show_tax === '1' || defaults.show_tax === 'true', show_discount: defaults.show_discount === '1' || defaults.show_discount === 'true',
         show_customer: defaults.show_customer === '1' || defaults.show_customer === 'true',
     });
-    const save = (e: React.FormEvent) => { e.preventDefault(); post('/settings/pos-settings'); };
+    const save = (e: React.FormEvent) => { e.preventDefault(); post('/pos-settings'); };
 
     return (
         <form onSubmit={save}>
@@ -105,7 +105,7 @@ function PosTab({ defaults }: { defaults: Record<string, string> }) {
         allow_discount: defaults.allow_discount === '1' || defaults.allow_discount === 'true', allow_price_edit: defaults.allow_price_edit === '1' || defaults.allow_price_edit === 'true',
         theme: defaults.theme || 'light',
     });
-    const save = (e: React.FormEvent) => { e.preventDefault(); post('/settings/pos-settings'); };
+    const save = (e: React.FormEvent) => { e.preventDefault(); post('/pos-settings'); };
 
     return (
         <form onSubmit={save}>
@@ -152,7 +152,7 @@ function MailTab({ defaults }: { defaults: Record<string, string> }) {
         group: 'mail', smtp_host: defaults.smtp_host || '', smtp_port: defaults.smtp_port || '587', smtp_username: defaults.smtp_username || '',
         smtp_password: defaults.smtp_password || '', smtp_encryption: defaults.smtp_encryption || 'tls', from_name: defaults.from_name || '', from_email: defaults.from_email || '',
     });
-    const save = (e: React.FormEvent) => { e.preventDefault(); post('/settings/pos-settings'); };
+    const save = (e: React.FormEvent) => { e.preventDefault(); post('/pos-settings'); };
 
     return (
         <form onSubmit={save}>
@@ -187,7 +187,7 @@ function SmsTab({ defaults }: { defaults: Record<string, string> }) {
         group: 'sms', provider: defaults.provider || 'twilio', api_key: defaults.api_key || '', api_secret: defaults.api_secret || '',
         sender_id: defaults.sender_id || '', template_sale: defaults.template_sale || '', template_due: defaults.template_due || '',
     });
-    const save = (e: React.FormEvent) => { e.preventDefault(); post('/settings/pos-settings'); };
+    const save = (e: React.FormEvent) => { e.preventDefault(); post('/pos-settings'); };
 
     return (
         <form onSubmit={save}>

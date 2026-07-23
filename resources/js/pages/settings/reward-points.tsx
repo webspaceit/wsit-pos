@@ -15,11 +15,11 @@ export default function RewardPoints({ points, customers }: Props) {
 
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
-        post('/settings/reward-points', { onSuccess: () => { setShowCreate(false); reset(); } });
+        post('/reward-points', { onSuccess: () => { setShowCreate(false); reset(); } });
     };
 
     return (
-        <AppLayout breadcrumbs={[{ title: 'Settings', href: '/settings' }, { title: 'Reward Points', href: '/settings/reward-points' }]}>
+        <AppLayout breadcrumbs={[{ title: 'Dashboard', href: '/dashboard' }, { title: 'Reward Points', href: '/reward-points' }]}>
             <Head title="Reward Points" />
             <div className="p-4 space-y-4">
                 <div className="flex items-center justify-between">
@@ -41,7 +41,7 @@ export default function RewardPoints({ points, customers }: Props) {
                                     <td className="px-3 py-2"><span className={`rounded-full px-2 py-0.5 text-xs ${p.type === 'earned' ? 'bg-green-100 text-green-700' : p.type === 'redeemed' ? 'bg-red-100 text-red-700' : 'bg-yellow-100 text-yellow-700'}`}>{p.type}</span></td>
                                     <td className={`px-3 py-2 text-right font-medium ${p.type === 'earned' ? 'text-green-600' : p.type === 'redeemed' ? 'text-red-600' : ''}`}>{p.type === 'redeemed' ? '-' : '+'}{p.points}</td>
                                     <td className="px-3 py-2 text-muted-foreground text-xs">{p.description || '-'}</td>
-                                    <td className="px-3 py-2 text-right"><button onClick={() => { if (confirm('Delete?')) router.delete(`/settings/reward-points/${p.id}`); }} className="text-red-600 hover:underline text-xs">Delete</button></td>
+                                    <td className="px-3 py-2 text-right"><button onClick={() => { if (confirm('Delete?')) router.delete(`/reward-points/${p.id}`); }} className="text-red-600 hover:underline text-xs">Delete</button></td>
                                 </tr>
                             ))}
                             {points.data.length === 0 && <tr><td colSpan={6} className="px-3 py-8 text-center text-muted-foreground">No reward entries</td></tr>}

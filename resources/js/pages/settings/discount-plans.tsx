@@ -15,12 +15,12 @@ export default function DiscountPlans({ plans }: Props) {
 
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (editing) { put(`/settings/discount-plans/${editing.id}`, { onSuccess: () => { setEditing(null); reset(); } }); }
-        else { post('/settings/discount-plans', { onSuccess: () => { setShowCreate(false); reset(); } }); }
+        if (editing) { put(`/discount-plans/${editing.id}`, { onSuccess: () => { setEditing(null); reset(); } }); }
+        else { post('/discount-plans', { onSuccess: () => { setShowCreate(false); reset(); } }); }
     };
 
     return (
-        <AppLayout breadcrumbs={[{ title: 'Settings', href: '/settings' }, { title: 'Discount Plans', href: '/settings/discount-plans' }]}>
+        <AppLayout breadcrumbs={[{ title: 'Dashboard', href: '/dashboard' }, { title: 'Discount Plans', href: '/discount-plans' }]}>
             <Head title="Discount Plans" />
             <div className="p-4 space-y-4">
                 <div className="flex items-center justify-between">
@@ -46,7 +46,7 @@ export default function DiscountPlans({ plans }: Props) {
                                     <td className="px-3 py-2 text-center"><span className={`rounded-full px-2 py-0.5 text-xs ${p.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>{p.is_active ? 'Active' : 'Inactive'}</span></td>
                                     <td className="px-3 py-2 text-right space-x-2">
                                         <button onClick={() => { reset(); setData({ name: p.name, type: p.type, value: p.value, min_purchase: p.min_purchase, max_discount: String(p.max_discount ?? ''), start_date: p.start_date ?? '', end_date: p.end_date ?? '', is_active: p.is_active }); setEditing(p); }} className="text-blue-600 hover:underline text-xs">Edit</button>
-                                        <button onClick={() => { if (confirm('Delete?')) router.delete(`/settings/discount-plans/${p.id}`); }} className="text-red-600 hover:underline text-xs">Delete</button>
+                                        <button onClick={() => { if (confirm('Delete?')) router.delete(`/discount-plans/${p.id}`); }} className="text-red-600 hover:underline text-xs">Delete</button>
                                     </td>
                                 </tr>
                             ))}

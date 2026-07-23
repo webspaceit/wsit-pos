@@ -73,7 +73,7 @@ export default function LandingPageSettings({ landing }: Props) {
 
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
-        put('/settings/landing-page');
+        put('/landing-page');
     };
 
     const updateNavLink = (index: number, field: keyof NavLink, value: string) => {
@@ -146,7 +146,7 @@ export default function LandingPageSettings({ landing }: Props) {
     const removeFaq = (index: number) => setData('faq', data.faq.filter((_, i) => i !== index));
 
     return (
-        <AppLayout breadcrumbs={[{ title: 'Settings', href: '/settings' }, { title: 'Landing Page', href: '/settings/landing-page' }]}>
+        <AppLayout breadcrumbs={[{ title: 'Dashboard', href: '/dashboard' }, { title: 'Landing Page', href: '/landing-page' }]}>
             <Head title="Landing Page Settings" />
             <div className="p-4 max-w-4xl space-y-4">
                 <h1 className="text-lg font-semibold">Landing Page</h1>

@@ -145,21 +145,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('settings/business', [SettingController::class, 'update'])->name('settings.business.update');
 
     // Landing Page Settings
-    Route::get('settings/landing-page', [LandingPageSettingsController::class, 'index'])->name('admin.landing-page');
-    Route::put('settings/landing-page', [LandingPageSettingsController::class, 'update'])->name('admin.landing-page.update');
+    Route::get('landing-page', [LandingPageSettingsController::class, 'index'])->name('admin.landing-page');
+    Route::put('landing-page', [LandingPageSettingsController::class, 'update'])->name('admin.landing-page.update');
 
     // Discount Plans
-    Route::resource('settings/discount-plans', DiscountPlanController::class)->except(['show', 'edit', 'create']);
+    Route::resource('discount-plans', DiscountPlanController::class)->except(['show', 'edit', 'create']);
 
     // Customer Groups
-    Route::resource('settings/customer-groups', CustomerGroupController::class)->except(['show', 'edit', 'create']);
+    Route::resource('customer-groups', CustomerGroupController::class)->except(['show', 'edit', 'create']);
 
     // Reward Points
-    Route::resource('settings/reward-points', RewardPointController::class)->except(['show', 'edit', 'create']);
+    Route::resource('reward-points', RewardPointController::class)->except(['show', 'edit', 'create']);
 
     // POS Settings (Barcode, Invoice, POS, Mail, SMS)
-    Route::get('settings/pos-settings', [PosSettingsController::class, 'index'])->name('settings.pos-settings.index');
-    Route::post('settings/pos-settings', [PosSettingsController::class, 'update'])->name('settings.pos-settings.update');
+    Route::get('pos-settings', [PosSettingsController::class, 'index'])->name('settings.pos-settings.index');
+    Route::post('pos-settings', [PosSettingsController::class, 'update'])->name('settings.pos-settings.update');
 
     // Quotations
     Route::resource('quotations', QuotationController::class)->except(['edit', 'update']);

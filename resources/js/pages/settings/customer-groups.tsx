@@ -14,12 +14,12 @@ export default function CustomerGroups({ groups }: Props) {
 
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (editing) { put(`/settings/customer-groups/${editing.id}`, { onSuccess: () => { setEditing(null); reset(); } }); }
-        else { post('/settings/customer-groups', { onSuccess: () => { setShowCreate(false); reset(); } }); }
+        if (editing) { put(`/customer-groups/${editing.id}`, { onSuccess: () => { setEditing(null); reset(); } }); }
+        else { post('/customer-groups', { onSuccess: () => { setShowCreate(false); reset(); } }); }
     };
 
     return (
-        <AppLayout breadcrumbs={[{ title: 'Settings', href: '/settings' }, { title: 'Customer Groups', href: '/settings/customer-groups' }]}>
+        <AppLayout breadcrumbs={[{ title: 'Dashboard', href: '/dashboard' }, { title: 'Customer Groups', href: '/customer-groups' }]}>
             <Head title="Customer Groups" />
             <div className="p-4 space-y-4">
                 <div className="flex items-center justify-between">
@@ -43,7 +43,7 @@ export default function CustomerGroups({ groups }: Props) {
                                     <td className="px-3 py-2 text-center"><span className={`rounded-full px-2 py-0.5 text-xs ${g.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>{g.is_active ? 'Active' : 'Inactive'}</span></td>
                                     <td className="px-3 py-2 text-right space-x-2">
                                         <button onClick={() => { reset(); setData({ name: g.name, discount_percent: g.discount_percent, description: g.description ?? '', is_active: g.is_active }); setEditing(g); }} className="text-blue-600 hover:underline text-xs">Edit</button>
-                                        <button onClick={() => { if (confirm('Delete?')) router.delete(`/settings/customer-groups/${g.id}`); }} className="text-red-600 hover:underline text-xs">Delete</button>
+                                        <button onClick={() => { if (confirm('Delete?')) router.delete(`/customer-groups/${g.id}`); }} className="text-red-600 hover:underline text-xs">Delete</button>
                                     </td>
                                 </tr>
                             ))}
