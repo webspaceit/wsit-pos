@@ -162,6 +162,7 @@ class DatabaseSeeder extends Seeder
             Setting::create($item);
         }
 
+        $this->call(ChartOfAccountsSeeder::class);
         $this->call(SampleDataSeeder::class);
     }
 }

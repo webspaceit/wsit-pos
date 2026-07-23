@@ -2,6 +2,7 @@ import { Link, usePage } from '@inertiajs/react';
 import {
     BarChart3,
     Building2,
+    BookOpen,
     Calculator,
     CreditCard as CollectIcon,
     DollarSign,
@@ -111,6 +112,17 @@ const allSections = [
             { title: 'Stock Transfers', href: '/stock-transfers', icon: Repeat },
             { title: 'Stock Counts', href: '/stock-counts', icon: Calculator },
             { title: 'Damage Stock', href: '/damage-stock', icon: AlertTriangle },
+        ],
+    },
+    {
+        title: 'Accounting',
+        icon: BookOpen,
+        items: [
+            { title: 'Chart of Accounts', href: '/accounting/accounts', icon: BookOpen },
+            { title: 'Trial Balance', href: '/accounting/trial-balance', icon: Calculator },
+            { title: 'General Ledger', href: '/accounting/general-ledger', icon: FileText },
+            { title: 'Balance Sheet', href: '/accounting/balance-sheet', icon: BarChart3 },
+            { title: 'Cash Flow', href: '/accounting/cash-flow', icon: DollarSign },
         ],
     },
     {

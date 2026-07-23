@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AccountingController;
 use App\Http\Controllers\Admin\LandingPageSettingsController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\BrandController;
@@ -146,4 +148,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Exchanges
     Route::resource('exchanges', ExchangeController::class)->except(['edit', 'update']);
+
+    // Accounting
+    Route::resource('accounting/accounts', AccountController::class)->except(['show', 'edit', 'create']);
+    Route::get('accounting/trial-balance', [AccountingController::class, 'trialBalance'])->name('accounting.trial-balance');
+    Route::get('accounting/general-ledger', [AccountingController::class, 'generalLedger'])->name('accounting.general-ledger');
+    Route::get('accounting/balance-sheet', [AccountingController::class, 'balanceSheet'])->name('accounting.balance-sheet');
+    Route::get('accounting/cash-flow', [AccountingController::class, 'cashFlow'])->name('accounting.cash-flow');
 });
