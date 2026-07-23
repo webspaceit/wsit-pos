@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AccountingController;
 use App\Http\Controllers\Admin\LandingPageSettingsController;
+use App\Http\Controllers\AiAssistantController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
@@ -25,10 +26,12 @@ use App\Http\Controllers\PackingSlipController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\PosSettingsController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductionOrderController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\PurchaseReturnController;
 use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\RepairController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RewardPointController;
@@ -41,9 +44,8 @@ use App\Http\Controllers\StockTransferController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WhatsAppController;
 use Illuminate\Support\Facades\Route;
-use ManufacturingController\ProductionOrderController;
-use ManufacturingController\RecipeController;
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
@@ -219,4 +221,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('projects/{project}/tasks', [ProjectController::class, 'storeTask'])->name('projects.tasks.store');
     Route::put('projects/tasks/{task}', [ProjectController::class, 'updateTask'])->name('projects.tasks.update');
     Route::delete('projects/tasks/{task}', [ProjectController::class, 'destroyTask'])->name('projects.tasks.destroy');
+
+    // WhatsApp Integration
+    Route::get('whatsapp', [WhatsAppController::class, 'index'])->name('whatsapp.index');
+    Route::post('whatsapp/send', [WhatsAppController::class, 'send'])->name('whatsapp.send');
+    Route::post('whatsapp/send-invoice', [WhatsAppController::class, 'sendInvoice'])->name('whatsapp.send-invoice');
+    Route::get('whatsapp/settings', [WhatsAppController::class, 'settings'])->name('whatsapp.settings');
+    Route::post('whatsapp/settings', [WhatsAppController::class, 'settingsUpdate'])->name('whatsapp.settings.update');
+    Route::get('whatsapp/templates', [WhatsAppController::class, 'templates'])->name('whatsapp.templates.index');
+    Route::post('whatsapp/templates', [WhatsAppController::class, 'templateStore'])->name('whatsapp.templates.store');
+    Route::put('whatsapp/templates/{template}', [WhatsAppController::class, 'templateUpdate'])->name('whatsapp.templates.update');
+    Route::delete('whatsapp/templates/{template}', [WhatsAppController::class, 'templateDestroy'])->name('whatsapp.templates.destroy');
+
+    // AI Assistant
+    Route::get('ai-assistant', [AiAssistantController::class, 'index'])->name('ai-assistant.index');
+    Route::post('ai-assistant/query', [AiAssistantController::class, 'query'])->name('ai-assistant.query');
 });

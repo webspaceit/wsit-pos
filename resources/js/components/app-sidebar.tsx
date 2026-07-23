@@ -30,6 +30,8 @@ import {
     Factory,
     FolderKanban,
     Cog,
+    MessageCircle,
+    Bot,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavMain } from '@/components/nav-main';
@@ -174,7 +176,9 @@ const allSections = [
             { title: 'Customer Groups', href: '/settings/customer-groups', icon: UserCheck },
             { title: 'Reward Points', href: '/settings/reward-points', icon: Star },
             { title: 'POS Settings', href: '/settings/pos-settings', icon: SlidersHorizontal },
+            { title: 'WhatsApp', href: '/whatsapp', icon: MessageCircle },
             { title: 'Landing Page', href: '/settings/landing-page', icon: Settings },
+            { title: 'AI Assistant', href: '/ai-assistant', icon: Bot },
         ],
     },
 ];
