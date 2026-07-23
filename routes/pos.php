@@ -9,7 +9,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChallanController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CustomerGroupController;
 use App\Http\Controllers\DamageStockController;
+use App\Http\Controllers\DiscountPlanController;
 use App\Http\Controllers\DueCollectionController;
 use App\Http\Controllers\ExchangeController;
 use App\Http\Controllers\ExpenseCategoryController;
@@ -20,11 +22,13 @@ use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\InstallmentController;
 use App\Http\Controllers\PackingSlipController;
 use App\Http\Controllers\PosController;
+use App\Http\Controllers\PosSettingsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\PurchaseReturnController;
 use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\RewardPointController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SaleReturnController;
 use App\Http\Controllers\SettingController;
@@ -136,6 +140,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Landing Page Settings
     Route::get('settings/landing-page', [LandingPageSettingsController::class, 'index'])->name('admin.landing-page');
     Route::put('settings/landing-page', [LandingPageSettingsController::class, 'update'])->name('admin.landing-page.update');
+
+    // Discount Plans
+    Route::resource('settings/discount-plans', DiscountPlanController::class)->except(['show', 'edit', 'create']);
+
+    // Customer Groups
+    Route::resource('settings/customer-groups', CustomerGroupController::class)->except(['show', 'edit', 'create']);
+
+    // Reward Points
+    Route::resource('settings/reward-points', RewardPointController::class)->except(['show', 'edit', 'create']);
+
+    // POS Settings (Barcode, Invoice, POS, Mail, SMS)
+    Route::get('settings/pos-settings', [PosSettingsController::class, 'index'])->name('settings.pos-settings.index');
+    Route::post('settings/pos-settings', [PosSettingsController::class, 'update'])->name('settings.pos-settings.update');
 
     // Quotations
     Route::resource('quotations', QuotationController::class)->except(['edit', 'update']);

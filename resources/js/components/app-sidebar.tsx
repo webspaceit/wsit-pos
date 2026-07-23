@@ -22,6 +22,10 @@ import {
     Users,
     Warehouse,
     AlertTriangle,
+    BadgePercent,
+    UserCheck,
+    Star,
+    SlidersHorizontal,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavMain } from '@/components/nav-main';
@@ -131,6 +135,10 @@ const allSections = [
         items: [
             { title: 'Reports', href: '/reports', icon: BarChart3 },
             { title: 'Branches', href: '/branches', icon: Building2 },
+            { title: 'Discount Plans', href: '/settings/discount-plans', icon: BadgePercent },
+            { title: 'Customer Groups', href: '/settings/customer-groups', icon: UserCheck },
+            { title: 'Reward Points', href: '/settings/reward-points', icon: Star },
+            { title: 'POS Settings', href: '/settings/pos-settings', icon: SlidersHorizontal },
             { title: 'Landing Page', href: '/settings/landing-page', icon: Settings },
         ],
     },
