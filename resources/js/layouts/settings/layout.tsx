@@ -26,9 +26,19 @@ const sidebarNavItems: NavItem[] = [
         href: editAppearance(),
         icon: null,
     },
+    {
+        title: 'Business',
+        href: '/settings/business',
+        icon: null,
+    },
+    {
+        title: 'Landing Page',
+        href: '/settings/landing-page',
+        icon: null,
+    },
 ];
 
-export default function SettingsLayout({ children }: PropsWithChildren) {
+export default function SettingsLayout({ children, wide = false }: PropsWithChildren<{ wide?: boolean }>) {
     const { isCurrentOrParentUrl } = useCurrentUrl();
 
     return (
@@ -67,8 +77,8 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
 
                 <Separator className="my-6 lg:hidden" />
 
-                <div className="flex-1 md:max-w-2xl">
-                    <section className="max-w-xl space-y-12">
+                <div className={cn('flex-1', wide ? 'max-w-4xl' : 'md:max-w-2xl')}>
+                    <section className={cn('space-y-6', !wide && 'max-w-xl')}>
                         {children}
                     </section>
                 </div>

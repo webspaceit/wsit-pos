@@ -155,6 +155,7 @@ class DatabaseSeeder extends Seeder
             ['key' => 'cta_subtitle', 'value' => 'Join 2,500+ Bangladeshi businesses already using WSIT POS to streamline operations, boost sales, and grow faster. Start your free 14-day trial today — no credit card required.', 'group' => 'landing', 'type' => 'text'],
             ['key' => 'cta_button_text', 'value' => 'Start Free 14-Day Trial', 'group' => 'landing', 'type' => 'text'],
             ['key' => 'footer_text', 'value' => 'WebSpace IT POS — Built for Bangladesh', 'group' => 'landing', 'type' => 'text'],
+            ['key' => 'footer_copyright', 'value' => '© '.date('Y').' WebSpace IT. All rights reserved.', 'group' => 'landing', 'type' => 'text'],
         ];
 
         foreach ($landing as $item) {

@@ -1,14 +1,26 @@
 import * as React from 'react';
 import { SidebarInset } from '@/components/ui/sidebar';
+import { cn } from '@/lib/utils';
 import type { AppVariant } from '@/types';
 
 type Props = React.ComponentProps<'main'> & {
     variant?: AppVariant;
+    fullWidth?: boolean;
 };
 
-export function AppContent({ variant = 'sidebar', children, ...props }: Props) {
+export function AppContent({ variant = 'sidebar', fullWidth = false, children, ...props }: Props) {
     if (variant === 'sidebar') {
-        return <SidebarInset {...props}>{children}</SidebarInset>;
+        return (
+            <SidebarInset
+                {...props}
+                className={cn(
+                    fullWidth && 'md:!m-0 md:!ml-0 md:!rounded-none md:!shadow-none',
+                    props.className,
+                )}
+            >
+                {children}
+            </SidebarInset>
+        );
     }
 
     return (

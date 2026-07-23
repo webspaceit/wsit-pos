@@ -48,6 +48,7 @@ class LandingPageSettingsController extends Controller
             'cta_subtitle' => 'nullable|string',
             'cta_button_text' => 'required|string|max:100',
             'footer_text' => 'nullable|string|max:255',
+            'footer_copyright' => 'nullable|string|max:255',
         ]);
 
         foreach ($validated as $key => $value) {

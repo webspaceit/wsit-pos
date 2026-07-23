@@ -64,6 +64,7 @@ interface LandingData {
     cta_subtitle: string;
     cta_button_text: string;
     footer_text: string;
+    footer_copyright: string;
 }
 
 function FaqItem({ faq }: { faq: Faq }) {
@@ -416,7 +417,7 @@ export default function Welcome() {
                                 </div>
                                 <span className="text-sm font-semibold text-gray-900">{l.footer_text}</span>
                             </div>
-                            <p className="text-sm text-gray-400">&copy; {new Date().getFullYear()} WebSpace IT. All rights reserved.</p>
+                            <p className="text-sm text-gray-400">{l.footer_copyright}</p>
                         </div>
                     </div>
                 </footer>
