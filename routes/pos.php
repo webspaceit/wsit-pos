@@ -4,17 +4,24 @@ use App\Http\Controllers\Admin\LandingPageSettingsController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChallanController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DamageStockController;
 use App\Http\Controllers\DueCollectionController;
+use App\Http\Controllers\ExchangeController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\GiftCardController;
 use App\Http\Controllers\IncomeCategoryController;
 use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\InstallmentController;
+use App\Http\Controllers\PackingSlipController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\PurchaseReturnController;
+use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SaleReturnController;
@@ -117,4 +124,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Landing Page Settings
     Route::get('settings/landing-page', [LandingPageSettingsController::class, 'index'])->name('admin.landing-page');
     Route::put('settings/landing-page', [LandingPageSettingsController::class, 'update'])->name('admin.landing-page.update');
+
+    // Quotations
+    Route::resource('quotations', QuotationController::class)->except(['edit', 'update']);
+
+    // Installments
+    Route::resource('installments', InstallmentController::class)->except(['edit', 'update']);
+    Route::post('installments/{payment}/pay', [InstallmentController::class, 'pay'])->name('installments.pay');
+
+    // Gift Cards
+    Route::resource('gift-cards', GiftCardController::class)->except(['edit', 'create']);
+
+    // Coupons
+    Route::resource('coupons', CouponController::class)->except(['show', 'edit', 'create']);
+
+    // Packing Slips
+    Route::resource('packing-slips', PackingSlipController::class)->except(['edit', 'update']);
+
+    // Challans
+    Route::resource('challans', ChallanController::class)->except(['edit', 'update']);
+
+    // Exchanges
+    Route::resource('exchanges', ExchangeController::class)->except(['edit', 'update']);
 });
