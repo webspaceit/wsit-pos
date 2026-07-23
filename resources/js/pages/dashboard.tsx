@@ -40,7 +40,7 @@ export default function Dashboard({
     topProducts,
 }: Props) {
     return (
-        <AppLayout breadcrumbs={[{ title: 'Dashboard', href: '/dashboard' }]}>
+        <AppLayout breadcrumbs={[{ title: 'Dashboard', href: '/dashboard' }]} fullWidth>
             <Head title="Dashboard" />
 
             <div className="flex h-full flex-1 flex-col gap-6 overflow-x-auto p-4 lg:p-6">
