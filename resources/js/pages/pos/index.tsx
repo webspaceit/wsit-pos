@@ -1,5 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 import { useState, useCallback, useRef, useEffect } from 'react';
+import AppLayout from '@/layouts/app-layout';
 import { formatCurrency } from '@/lib/pos-utils';
 
 interface Product { id: number; name: string; sku: string; barcode: string; price: number; tax_rate: number; tax_type: string; stock: number; }
@@ -110,7 +111,8 @@ export default function PosTerminal({ products, customers, branchId }: Props) {
     });
 
     return (
-        <div className="flex h-screen flex-col bg-gray-50 dark:bg-gray-900">
+        <AppLayout fullWidth>
+        <div className="flex h-[calc(100vh-4rem)] flex-col bg-gray-50 dark:bg-gray-900">
             <Head title="POS Terminal" />
 
             {/* Top Bar */}
@@ -244,5 +246,6 @@ export default function PosTerminal({ products, customers, branchId }: Props) {
                 </div>
             )}
         </div>
+        </AppLayout>
     );
 }
