@@ -187,6 +187,6 @@
 
 /* Reduce sidebar separator height */
 [data-sidebar="separator"] {
-    margin: 2px 8px;
+    margin: 1px 8px;
     height: 1px;
 }

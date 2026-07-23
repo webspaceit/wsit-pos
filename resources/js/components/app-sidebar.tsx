@@ -225,7 +225,7 @@ export function AppSidebar() {
                             <SidebarMenuButton
                                 asChild
                                 isActive={isCurrentUrl('/pos')}
-                                className="my-0.5 bg-gradient-to-r from-brand to-brand-dark font-semibold text-white shadow-md shadow-brand/20 hover:from-brand-dark hover:to-brand hover:text-white data-[active=true]:from-brand-dark data-[active=true]:to-brand data-[active=true]:text-white"
+                                className="bg-gradient-to-r from-brand to-brand-dark font-semibold text-white shadow-md shadow-brand/20 hover:from-brand-dark hover:to-brand hover:text-white data-[active=true]:from-brand-dark data-[active=true]:to-brand data-[active=true]:text-white"
                                 tooltip={{ children: 'POS Terminal' }}
                             >
                                 <Link href="/pos" prefetch>
