@@ -23,6 +23,8 @@ class LandingPageSettingsController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
+            'logo_text' => 'nullable|string|max:255',
+            'nav_links' => 'nullable|array',
             'hero_title' => 'required|string|max:255',
             'hero_subtitle' => 'required|string',
             'hero_cta_text' => 'required|string|max:100',

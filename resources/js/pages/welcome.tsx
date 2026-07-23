@@ -33,7 +33,14 @@ interface Faq {
     answer: string;
 }
 
+interface NavLink {
+    label: string;
+    href: string;
+}
+
 interface LandingData {
+    logo_text: string;
+    nav_links: NavLink[];
     hero_title: string;
     hero_subtitle: string;
     hero_cta_text: string;
@@ -89,21 +96,14 @@ export default function Welcome() {
                             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand">
                                 <span className="text-lg font-bold text-white">W</span>
                             </div>
-                            <span className="text-xl font-bold text-gray-900">WSIT POS</span>
+                            <span className="text-xl font-bold text-gray-900">{l.logo_text}</span>
                         </Link>
                         <div className="hidden items-center gap-8 md:flex">
-                            <a href="#features" className="text-sm font-medium text-gray-600 hover:text-gray-900">
-                                Features
-                            </a>
-                            <a href="#pricing" className="text-sm font-medium text-gray-600 hover:text-gray-900">
-                                Pricing
-                            </a>
-                            <a href="#testimonials" className="text-sm font-medium text-gray-600 hover:text-gray-900">
-                                Testimonials
-                            </a>
-                            <a href="#faq" className="text-sm font-medium text-gray-600 hover:text-gray-900">
-                                FAQ
-                            </a>
+                            {l.nav_links?.map((link) => (
+                                <a key={link.label} href={link.href} className="text-sm font-medium text-gray-600 hover:text-gray-900">
+                                    {link.label}
+                                </a>
+                            ))}
                         </div>
                         <div className="flex items-center gap-3">
                             {auth?.user ? (

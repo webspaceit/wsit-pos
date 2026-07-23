@@ -96,6 +96,13 @@ class DatabaseSeeder extends Seeder
         }
 
         $landing = [
+            ['key' => 'logo_text', 'value' => 'WSIT POS', 'group' => 'landing', 'type' => 'text'],
+            ['key' => 'nav_links', 'value' => json_encode([
+                ['label' => 'Features', 'href' => '#features'],
+                ['label' => 'Pricing', 'href' => '#pricing'],
+                ['label' => 'Testimonials', 'href' => '#testimonials'],
+                ['label' => 'FAQ', 'href' => '#faq'],
+            ]), 'group' => 'landing', 'type' => 'json'],
             ['key' => 'hero_title', 'value' => 'The #1 POS System Built for Bangladesh', 'group' => 'landing', 'type' => 'text'],
             ['key' => 'hero_subtitle', 'value' => 'Run your retail business smarter with real-time inventory, bKash/Nagad payments, multi-branch management, and powerful analytics — all in one platform designed exclusively for Bangladeshi businesses.', 'group' => 'landing', 'type' => 'text'],
             ['key' => 'hero_cta_text', 'value' => 'Start Free Trial', 'group' => 'landing', 'type' => 'text'],

@@ -22,6 +22,11 @@ interface Testimonial {
     text: string;
 }
 
+interface NavLink {
+    label: string;
+    href: string;
+}
+
 interface Stat {
     value: string;
     label: string;
@@ -38,6 +43,8 @@ interface Props {
 
 export default function LandingPageSettings({ landing }: Props) {
     const { data, setData, put, processing, errors } = useForm({
+        logo_text: landing.logo_text || '',
+        nav_links: (typeof landing.nav_links === 'string' ? JSON.parse(landing.nav_links) : landing.nav_links || []) as NavLink[],
         hero_title: landing.hero_title || '',
         hero_subtitle: landing.hero_subtitle || '',
         hero_cta_text: landing.hero_cta_text || '',
@@ -66,6 +73,20 @@ export default function LandingPageSettings({ landing }: Props) {
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
         put('/settings/landing-page');
+    };
+
+    const updateNavLink = (index: number, field: keyof NavLink, value: string) => {
+        const updated = [...data.nav_links];
+        updated[index] = { ...updated[index], [field]: value };
+        setData('nav_links', updated);
+    };
+
+    const addNavLink = () => {
+        setData('nav_links', [...data.nav_links, { label: '', href: '' }]);
+    };
+
+    const removeNavLink = (index: number) => {
+        setData('nav_links', data.nav_links.filter((_, i) => i !== index));
     };
 
     const updateFeature = (index: number, field: keyof Feature, value: string) => {
@@ -164,6 +185,23 @@ export default function LandingPageSettings({ landing }: Props) {
             <div className="p-4 max-w-3xl">
                 <h2 className="text-xl font-semibold mb-4">Landing Page Settings</h2>
                 <form onSubmit={submit} className="space-y-6">
+                    {/* Navigation Section */}
+                    <section className="rounded-xl border p-6 space-y-4">
+                        <h3 className="font-semibold text-lg border-b pb-2">Navigation / Header</h3>
+                        <Field label="Logo Text" value={data.logo_text} onChange={(v) => setData('logo_text', v)} />
+
+                        <div className="space-y-3 mt-4">
+                            {data.nav_links.map((link, i) => (
+                                <div key={i} className="flex items-center gap-3 rounded-lg bg-gray-50 p-3">
+                                    <input type="text" value={link.label} onChange={(e) => updateNavLink(i, 'label', e.target.value)} placeholder="Label (e.g. Features)" className="flex-1 rounded-md border px-3 py-2 text-sm" />
+                                    <input type="text" value={link.href} onChange={(e) => updateNavLink(i, 'href', e.target.value)} placeholder="Href (e.g. #features)" className="flex-1 rounded-md border px-3 py-2 text-sm" />
+                                    <button type="button" onClick={() => removeNavLink(i)} className="text-xs text-red-600 hover:text-red-800">Remove</button>
+                                </div>
+                            ))}
+                        </div>
+                        <button type="button" onClick={addNavLink} className="text-sm text-brand hover:text-brand-dark font-medium">+ Add Nav Link</button>
+                    </section>
+
                     {/* Hero Section */}
                     <section className="rounded-xl border p-6 space-y-4">
                         <h3 className="font-semibold text-lg border-b pb-2">Hero Section</h3>
