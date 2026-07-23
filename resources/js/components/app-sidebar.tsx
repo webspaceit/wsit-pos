@@ -32,6 +32,7 @@ import {
     Cog,
     MessageCircle,
     Bot,
+    Palette,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavMain } from '@/components/nav-main';
@@ -178,6 +179,7 @@ const allSections = [
             { title: 'POS Settings', href: '/pos-settings', icon: SlidersHorizontal },
             { title: 'WhatsApp', href: '/whatsapp', icon: MessageCircle },
             { title: 'Landing Page', href: '/landing-page', icon: Settings },
+            { title: 'Branding', href: '/branding', icon: Palette },
             { title: 'AI Assistant', href: '/ai-assistant', icon: Bot },
         ],
     },

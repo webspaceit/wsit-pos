@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\LandingPageSettingsController;
 use App\Http\Controllers\AiAssistantController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\BrandingController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChallanController;
 use App\Http\Controllers\CouponController;
@@ -160,6 +161,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // POS Settings (Barcode, Invoice, POS, Mail, SMS)
     Route::get('pos-settings', [PosSettingsController::class, 'index'])->name('settings.pos-settings.index');
     Route::post('pos-settings', [PosSettingsController::class, 'update'])->name('settings.pos-settings.update');
+
+    // Branding (Logo & Favicon)
+    Route::get('branding', [BrandingController::class, 'index'])->name('branding.index');
+    Route::post('branding/logo', [BrandingController::class, 'updateLogo'])->name('branding.logo.update');
+    Route::post('branding/favicon', [BrandingController::class, 'updateFavicon'])->name('branding.favicon.update');
+    Route::delete('branding/logo', [BrandingController::class, 'destroyLogo'])->name('branding.logo.destroy');
+    Route::delete('branding/favicon', [BrandingController::class, 'destroyFavicon'])->name('branding.favicon.destroy');
 
     // Quotations
     Route::resource('quotations', QuotationController::class)->except(['edit', 'update']);
