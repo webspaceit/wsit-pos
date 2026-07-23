@@ -37,7 +37,7 @@ class BrandingController extends Controller
     public function updateFavicon(Request $request)
     {
         $request->validate([
-            'favicon' => 'required|image|mimes:ico,png,svg|max:512',
+            'favicon' => 'required|max:2048',
         ]);
 
         $old = Setting::getValue('branding_favicon');
