@@ -11,7 +11,6 @@ use App\Models\Project;
 use App\Models\Purchase;
 use App\Models\RepairTicket;
 use App\Models\Sale;
-use App\Models\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -26,7 +25,7 @@ class AiAssistantController extends Controller
             'month_sales' => Sale::whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('grand_total'),
             'month_purchases' => Purchase::whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('total'),
             'total_products' => Product::count(),
-            'low_stock' => Product::where('quantity', '<=', DB::raw('min_stock'))->count(),
+            'low_stock' => Product::whereColumn('stock_quantity', '<=', 'min_stock')->where('min_stock', '>', 0)->count(),
             'total_customers' => Customer::count(),
             'total_due' => Customer::sum('balance'),
             'active_repairs' => RepairTicket::whereIn('status', ['received', 'diagnosed', 'in_repair'])->count(),
@@ -37,8 +36,8 @@ class AiAssistantController extends Controller
         ];
 
         $recentSales = Sale::with('customer')->latest()->limit(5)->get(['id', 'invoice_no', 'grand_total', 'paid_amount', 'due_amount', 'created_at']);
-        $topProducts = Product::withCount('saleItems')->orderByDesc('sale_items_count')->limit(5)->get(['id', 'name', 'quantity', 'unit_price']);
-        $lowStockProducts = Product::where('quantity', '<=', DB::raw('min_stock'))->limit(5)->get(['id', 'name', 'quantity', 'min_stock']);
+        $topProducts = Product::withCount('saleItems')->orderByDesc('sale_items_count')->limit(5)->get(['id', 'name', 'stock_quantity', 'selling_price']);
+        $lowStockProducts = Product::lowStock()->limit(5)->get(['id', 'name', 'stock_quantity', 'min_stock']);
 
         return Inertia::render('ai-assistant/index', [
             'stats' => $stats,
@@ -101,8 +100,8 @@ class AiAssistantController extends Controller
 
         // Stock queries
         if (str_contains($question, 'low stock') || str_contains($question, 'out of stock') || str_contains($question, 'stock') && str_contains($question, 'kamon') || str_contains($question, 'stock') && str_contains($question, 'ki')) {
-            $products = Product::where('quantity', '<=', DB::raw('min_stock'))->limit(10)->get(['id', 'name', 'quantity', 'min_stock']);
-            $count = Product::where('quantity', '<=', DB::raw('min_stock'))->count();
+            $products = Product::lowStock()->limit(10)->get(['id', 'name', 'stock_quantity', 'min_stock']);
+            $count = Product::lowStock()->count();
 
             return [
                 'answer' => "There are {$count} products with low or out of stock.",
@@ -111,7 +110,7 @@ class AiAssistantController extends Controller
         }
 
         if (str_contains($question, 'total stock') || str_contains($question, 'stock value')) {
-            $value = Product::sum(DB::raw('quantity * unit_price'));
+            $value = Product::sum(DB::raw('stock_quantity * selling_price'));
             $count = Product::count();
 
             return [
@@ -164,7 +163,7 @@ class AiAssistantController extends Controller
         }
 
         if (str_contains($question, 'top') && str_contains($question, 'product')) {
-            $products = Product::withCount('saleItems')->orderByDesc('sale_items_count')->limit(5)->get(['id', 'name', 'quantity']);
+            $products = Product::withCount('saleItems')->orderByDesc('sale_items_count')->limit(5)->get(['id', 'name', 'stock_quantity']);
 
             return [
                 'answer' => 'Top selling products by quantity:',
