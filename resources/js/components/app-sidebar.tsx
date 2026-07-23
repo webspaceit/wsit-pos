@@ -3,11 +3,11 @@ import {
     BarChart3,
     Building2,
     Calculator,
-    CreditCard,
     CreditCard as CollectIcon,
     DollarSign,
     LayoutGrid,
     Package,
+    Repeat,
     Settings,
     ShieldCheck,
     ShoppingCart,
@@ -18,6 +18,7 @@ import {
     Truck,
     Users,
     Warehouse,
+    AlertTriangle,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavMain } from '@/components/nav-main';
@@ -41,37 +42,66 @@ import type { NavItem } from '@/types';
 
 const allSections = [
     {
-        title: 'Sales',
-        icon: TrendingUp,
+        title: 'People',
+        icon: Users,
         items: [
-            { title: 'Sales', href: '/sales', icon: TrendingUp },
-            { title: 'Due Collection', href: '/due-collections', icon: CollectIcon },
+            { title: 'Customers', href: '/customers', icon: Users },
+            { title: 'Suppliers', href: '/suppliers', icon: Truck },
+            { title: 'Users', href: '/users', icon: ShieldCheck },
         ],
     },
     {
-        title: 'Inventory',
+        title: 'Product',
         icon: Package,
         items: [
             { title: 'Products', href: '/products', icon: Package },
             { title: 'Categories', href: '/categories', icon: Tag },
+            { title: 'Brands', href: '/brands', icon: Tag },
             { title: 'Units', href: '/units', icon: Calculator },
-            { title: 'Stock', href: '/stock', icon: Warehouse },
         ],
     },
     {
-        title: 'Purchasing',
-        icon: Truck,
+        title: 'Purchase',
+        icon: ShoppingCart,
         items: [
             { title: 'Purchases', href: '/purchases', icon: ShoppingCart },
-            { title: 'Suppliers', href: '/suppliers', icon: Truck },
+            { title: 'Purchase Returns', href: '/purchase-returns', icon: Repeat },
         ],
     },
     {
-        title: 'Finance',
+        title: 'Sale',
+        icon: TrendingUp,
+        items: [
+            { title: 'Sales', href: '/sales', icon: TrendingUp },
+            { title: 'Sale Returns', href: '/sale-returns', icon: Repeat },
+            { title: 'POS Terminal', href: '/pos', icon: Store },
+            { title: 'Due Collection', href: '/due-collections', icon: CollectIcon },
+        ],
+    },
+    {
+        title: 'Income',
         icon: DollarSign,
         items: [
-            { title: 'Customers', href: '/customers', icon: Users },
+            { title: 'Incomes', href: '/incomes', icon: DollarSign },
+            { title: 'Income Categories', href: '/income-categories', icon: Tag },
+        ],
+    },
+    {
+        title: 'Expense',
+        icon: TrendingDown,
+        items: [
             { title: 'Expenses', href: '/expenses', icon: TrendingDown },
+            { title: 'Expense Categories', href: '/expense-categories', icon: Tag },
+        ],
+    },
+    {
+        title: 'Stock',
+        icon: Warehouse,
+        items: [
+            { title: 'Stock Adjustment', href: '/stock', icon: Warehouse },
+            { title: 'Stock Transfers', href: '/stock-transfers', icon: Repeat },
+            { title: 'Stock Counts', href: '/stock-counts', icon: Calculator },
+            { title: 'Damage Stock', href: '/damage-stock', icon: AlertTriangle },
         ],
     },
     {
@@ -80,7 +110,6 @@ const allSections = [
         items: [
             { title: 'Reports', href: '/reports', icon: BarChart3 },
             { title: 'Branches', href: '/branches', icon: Building2 },
-            { title: 'Users', href: '/users', icon: ShieldCheck },
             { title: 'Landing Page', href: '/settings/landing-page', icon: Settings },
         ],
     },
@@ -143,7 +172,7 @@ export function AppSidebar() {
                 <SidebarSeparator />
 
                 {/* Navigation groups */}
-                {visibleSections.map((section, i) => (
+                {visibleSections.map((section) => (
                     <SidebarGroup key={section.title}>
                         <GroupLabel
                             icon={section.icon}

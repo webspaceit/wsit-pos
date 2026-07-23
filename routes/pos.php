@@ -2,18 +2,26 @@
 
 use App\Http\Controllers\Admin\LandingPageSettingsController;
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DamageStockController;
 use App\Http\Controllers\DueCollectionController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\IncomeCategoryController;
+use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\PurchaseReturnController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\SaleReturnController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StockAdjustmentController;
+use App\Http\Controllers\StockCountController;
+use App\Http\Controllers\StockTransferController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
@@ -33,6 +41,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Categories
     Route::resource('categories', CategoryController::class)->except(['show', 'edit', 'create']);
 
+    // Brands
+    Route::resource('brands', BrandController::class)->except(['show', 'edit', 'create']);
+
     // Units
     Route::resource('units', UnitController::class)->except(['show', 'edit', 'create']);
 
@@ -46,13 +57,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('purchases', PurchaseController::class)->except(['edit', 'update']);
     Route::patch('purchases/{purchase}/receive', [PurchaseController::class, 'receive'])->name('purchases.receive');
 
+    // Purchase Returns
+    Route::resource('purchase-returns', PurchaseReturnController::class)->except(['edit', 'update']);
+
     // Sales
     Route::resource('sales', SaleController::class)->except(['edit', 'update']);
     Route::patch('sales/{sale}/void', [SaleController::class, 'voidSale'])->name('sales.void');
 
+    // Sale Returns
+    Route::resource('sale-returns', SaleReturnController::class)->except(['edit', 'update']);
+
     // Expenses
     Route::resource('expenses', ExpenseController::class)->except(['show', 'edit', 'create']);
     Route::resource('expense-categories', ExpenseCategoryController::class)->except(['show', 'edit', 'create']);
+
+    // Income
+    Route::resource('incomes', IncomeController::class)->except(['show', 'edit', 'create']);
+    Route::resource('income-categories', IncomeCategoryController::class)->except(['show', 'edit', 'create']);
 
     // Due Collections
     Route::get('due-collections', [DueCollectionController::class, 'index'])->name('due-collections.index');
@@ -61,6 +82,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Stock Management
     Route::get('stock', [StockAdjustmentController::class, 'index'])->name('stock.index');
     Route::post('stock/adjust', [StockAdjustmentController::class, 'adjust'])->name('stock.adjust');
+
+    // Stock Transfers
+    Route::resource('stock-transfers', StockTransferController::class)->except(['edit', 'update']);
+    Route::patch('stock-transfers/{stockTransfer}/receive', [StockTransferController::class, 'receive'])->name('stock-transfers.receive');
+
+    // Stock Counts
+    Route::resource('stock-counts', StockCountController::class)->except(['edit', 'update']);
+
+    // Damage Stock
+    Route::resource('damage-stock', DamageStockController::class)->except(['show', 'edit', 'create']);
 
     // Branches
     Route::resource('branches', BranchController::class)->except(['show', 'edit', 'create']);

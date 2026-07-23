@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Unit;
@@ -13,7 +14,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $products = Product::query()
-            ->with(['category', 'unit'])
+            ->with(['category', 'brand', 'unit'])
             ->search($request->search)
             ->when($request->category_id, fn ($q) => $q->where('category_id', $request->category_id))
             ->when($request->stock_status === 'low', fn ($q) => $q->lowStock())
@@ -23,11 +24,13 @@ class ProductController extends Controller
             ->withQueryString();
 
         $categories = Category::where('is_active', true)->orderBy('name')->get();
+        $brands = Brand::where('is_active', true)->orderBy('name')->get();
         $units = Unit::orderBy('name')->get();
 
         return Inertia::render('products/index', [
             'products' => $products,
             'categories' => $categories,
+            'brands' => $brands,
             'units' => $units,
         ]);
     }
@@ -35,10 +38,12 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::where('is_active', true)->orderBy('name')->get();
+        $brands = Brand::where('is_active', true)->orderBy('name')->get();
         $units = Unit::orderBy('name')->get();
 
         return Inertia::render('products/create', [
             'categories' => $categories,
+            'brands' => $brands,
             'units' => $units,
         ]);
     }
@@ -50,6 +55,7 @@ class ProductController extends Controller
             'sku' => 'nullable|string|max:50|unique:products,sku',
             'barcode' => 'nullable|string|max:50|unique:products,barcode',
             'category_id' => 'nullable|exists:categories,id',
+            'brand_id' => 'nullable|exists:brands,id',
             'unit_id' => 'nullable|exists:units,id',
             'purchase_price' => 'required|numeric|min:0',
             'selling_price' => 'required|numeric|min:0',
@@ -70,11 +76,13 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::where('is_active', true)->orderBy('name')->get();
+        $brands = Brand::where('is_active', true)->orderBy('name')->get();
         $units = Unit::orderBy('name')->get();
 
         return Inertia::render('products/edit', [
             'product' => $product,
             'categories' => $categories,
+            'brands' => $brands,
             'units' => $units,
         ]);
     }
@@ -86,6 +94,7 @@ class ProductController extends Controller
             'sku' => 'nullable|string|max:50|unique:products,sku,'.$product->id,
             'barcode' => 'nullable|string|max:50|unique:products,barcode,'.$product->id,
             'category_id' => 'nullable|exists:categories,id',
+            'brand_id' => 'nullable|exists:brands,id',
             'unit_id' => 'nullable|exists:units,id',
             'purchase_price' => 'required|numeric|min:0',
             'selling_price' => 'required|numeric|min:0',
