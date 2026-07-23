@@ -26,6 +26,10 @@ import {
     UserCheck,
     Star,
     SlidersHorizontal,
+    Wrench,
+    Factory,
+    FolderKanban,
+    Cog,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavMain } from '@/components/nav-main';
@@ -116,6 +120,37 @@ const allSections = [
             { title: 'Stock Transfers', href: '/stock-transfers', icon: Repeat },
             { title: 'Stock Counts', href: '/stock-counts', icon: Calculator },
             { title: 'Damage Stock', href: '/damage-stock', icon: AlertTriangle },
+        ],
+    },
+    {
+        title: 'HRM',
+        icon: Users,
+        items: [
+            { title: 'Employees', href: '/hrm/employees', icon: Users },
+            { title: 'Attendance', href: '/hrm/attendance', icon: UserCheck },
+            { title: 'Salaries', href: '/hrm/salary', icon: DollarSign },
+        ],
+    },
+    {
+        title: 'Manufacturing',
+        icon: Factory,
+        items: [
+            { title: 'Recipes', href: '/manufacturing/recipes', icon: Cog },
+            { title: 'Production Orders', href: '/manufacturing/orders', icon: Factory },
+        ],
+    },
+    {
+        title: 'Repairs',
+        icon: Wrench,
+        items: [
+            { title: 'Repair Tickets', href: '/repairs', icon: Wrench },
+        ],
+    },
+    {
+        title: 'Projects',
+        icon: FolderKanban,
+        items: [
+            { title: 'All Projects', href: '/projects', icon: FolderKanban },
         ],
     },
     {

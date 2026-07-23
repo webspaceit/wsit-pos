@@ -13,6 +13,7 @@ use App\Http\Controllers\CustomerGroupController;
 use App\Http\Controllers\DamageStockController;
 use App\Http\Controllers\DiscountPlanController;
 use App\Http\Controllers\DueCollectionController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ExchangeController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
@@ -24,9 +25,11 @@ use App\Http\Controllers\PackingSlipController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\PosSettingsController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\PurchaseReturnController;
 use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\RepairController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RewardPointController;
 use App\Http\Controllers\SaleController;
@@ -39,6 +42,8 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use ManufacturingController\ProductionOrderController;
+use ManufacturingController\RecipeController;
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
@@ -182,4 +187,36 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('accounting/general-ledger', [AccountingController::class, 'generalLedger'])->name('accounting.general-ledger');
     Route::get('accounting/balance-sheet', [AccountingController::class, 'balanceSheet'])->name('accounting.balance-sheet');
     Route::get('accounting/cash-flow', [AccountingController::class, 'cashFlow'])->name('accounting.cash-flow');
+
+    // HRM
+    Route::get('hrm/employees', [EmployeeController::class, 'index'])->name('hrm.employees.index');
+    Route::post('hrm/employees', [EmployeeController::class, 'store'])->name('hrm.employees.store');
+    Route::get('hrm/employees/{employee}', [EmployeeController::class, 'show'])->name('hrm.employees.show');
+    Route::put('hrm/employees/{employee}', [EmployeeController::class, 'update'])->name('hrm.employees.update');
+    Route::delete('hrm/employees/{employee}', [EmployeeController::class, 'destroy'])->name('hrm.employees.destroy');
+    Route::get('hrm/attendance', [EmployeeController::class, 'attendance'])->name('hrm.attendance.index');
+    Route::post('hrm/attendance', [EmployeeController::class, 'attendanceStore'])->name('hrm.attendance.store');
+    Route::get('hrm/salary', [EmployeeController::class, 'salary'])->name('hrm.salary.index');
+    Route::post('hrm/salary/generate', [EmployeeController::class, 'salaryGenerate'])->name('hrm.salary.generate');
+    Route::post('hrm/salary/{salary}/pay', [EmployeeController::class, 'salaryPay'])->name('hrm.salary.pay');
+
+    // Manufacturing
+    Route::resource('manufacturing/recipes', RecipeController::class)->except(['show', 'edit', 'create']);
+    Route::get('manufacturing/orders', [ProductionOrderController::class, 'index'])->name('manufacturing.orders.index');
+    Route::post('manufacturing/orders', [ProductionOrderController::class, 'store'])->name('manufacturing.orders.store');
+    Route::put('manufacturing/orders/{order}/status', [ProductionOrderController::class, 'updateStatus'])->name('manufacturing.orders.update-status');
+    Route::delete('manufacturing/orders/{order}', [ProductionOrderController::class, 'destroy'])->name('manufacturing.orders.destroy');
+
+    // Repairs
+    Route::get('repairs', [RepairController::class, 'index'])->name('repairs.index');
+    Route::post('repairs', [RepairController::class, 'store'])->name('repairs.store');
+    Route::get('repairs/{ticket}', [RepairController::class, 'show'])->name('repairs.show');
+    Route::put('repairs/{ticket}', [RepairController::class, 'update'])->name('repairs.update');
+    Route::delete('repairs/{ticket}', [RepairController::class, 'destroy'])->name('repairs.destroy');
+
+    // Projects
+    Route::resource('projects', ProjectController::class)->except(['edit', 'create']);
+    Route::post('projects/{project}/tasks', [ProjectController::class, 'storeTask'])->name('projects.tasks.store');
+    Route::put('projects/tasks/{task}', [ProjectController::class, 'updateTask'])->name('projects.tasks.update');
+    Route::delete('projects/tasks/{task}', [ProjectController::class, 'destroyTask'])->name('projects.tasks.destroy');
 });
