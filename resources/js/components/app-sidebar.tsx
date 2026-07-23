@@ -7,7 +7,6 @@ import {
     DollarSign,
     LayoutGrid,
     Package,
-    Receipt,
     Settings,
     ShieldCheck,
     ShoppingCart,
@@ -185,7 +184,6 @@ export function AppSidebar() {
                 {/* Sales */}
                 <SidebarGroup>
                     <GroupLabel icon={TrendingUp} items={salesNavItems}>Sales</GroupLabel>
-                    <NavMain items={salesNavItems} />
                 </SidebarGroup>
 
                 <SidebarSeparator />
@@ -193,7 +191,6 @@ export function AppSidebar() {
                 {/* Inventory */}
                 <SidebarGroup>
                     <GroupLabel icon={Package} items={inventoryNavItems}>Inventory</GroupLabel>
-                    <NavMain items={inventoryNavItems} />
                 </SidebarGroup>
 
                 <SidebarSeparator />
@@ -201,7 +198,6 @@ export function AppSidebar() {
                 {/* Purchasing */}
                 <SidebarGroup>
                     <GroupLabel icon={Truck} items={purchaseNavItems}>Purchasing</GroupLabel>
-                    <NavMain items={purchaseNavItems} />
                 </SidebarGroup>
 
                 <SidebarSeparator />
@@ -209,7 +205,6 @@ export function AppSidebar() {
                 {/* Finance */}
                 <SidebarGroup>
                     <GroupLabel icon={DollarSign} items={financeNavItems}>Finance</GroupLabel>
-                    <NavMain items={financeNavItems} />
                 </SidebarGroup>
 
                 {/* Administration — admin/manager only */}
@@ -218,7 +213,6 @@ export function AppSidebar() {
                         <SidebarSeparator />
                         <SidebarGroup>
                             <GroupLabel icon={ShieldCheck} items={adminNavItems}>Administration</GroupLabel>
-                            <NavMain items={adminNavItems} />
                         </SidebarGroup>
                     </>
                 )}
