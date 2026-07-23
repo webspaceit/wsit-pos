@@ -45,7 +45,7 @@ export default function CouponsIndex({ coupons }: Props) {
                                     <td className="px-3 py-2 text-xs">{formatDate(c.start_date)} - {formatDate(c.end_date)}</td>
                                     <td className="px-3 py-2 text-center"><span className={`rounded-full px-2 py-0.5 text-xs ${c.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>{c.is_active ? 'Active' : 'Inactive'}</span></td>
                                     <td className="px-3 py-2 text-right space-x-2">
-                                        <button onClick={() => { setData({ code: c.code, description: c.description || '', type: c.type, value: c.value, min_purchase: c.min_purchase, max_discount: c.max_discount ?? '', usage_limit: c.usage_limit ?? '', start_date: c.start_date, end_date: c.end_date, is_active: c.is_active }); setEditing(c); }} className="text-blue-600 hover:underline text-xs">Edit</button>
+                                        <button onClick={() => { reset(); setData('code', c.code); setData('description', c.description || ''); setData('type', c.type); setData('value', c.value); setData('min_purchase', c.min_purchase); setData('max_discount', String(c.max_discount ?? '')); setData('usage_limit', String(c.usage_limit ?? '')); setData('start_date', c.start_date); setData('end_date', c.end_date); setData('is_active', c.is_active); setEditing(c); }} className="text-blue-600 hover:underline text-xs">Edit</button>
                                         <button onClick={() => { if (confirm('Delete?')) router.delete(`/coupons/${c.id}`); }} className="text-red-600 hover:underline text-xs">Delete</button>
                                     </td>
                                 </tr>
