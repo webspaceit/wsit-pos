@@ -117,6 +117,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('stock', [ReportController::class, 'stock'])->name('stock');
         Route::get('tax', [ReportController::class, 'tax'])->name('tax');
         Route::get('customers', [ReportController::class, 'customers'])->name('customers');
+        Route::get('best-sellers', [ReportController::class, 'bestSellers'])->name('best-sellers');
+        Route::get('product', [ReportController::class, 'productReport'])->name('product');
+        Route::get('daily-sales', [ReportController::class, 'dailySales'])->name('daily-sales');
+        Route::get('monthly-sales', [ReportController::class, 'monthlySales'])->name('monthly-sales');
+        Route::get('daily-purchases', [ReportController::class, 'dailyPurchases'])->name('daily-purchases');
+        Route::get('monthly-purchases', [ReportController::class, 'monthlyPurchases'])->name('monthly-purchases');
+        Route::get('payments', [ReportController::class, 'payments'])->name('payments');
+        Route::get('supplier-dues', [ReportController::class, 'supplierDues'])->name('supplier-dues');
+        Route::get('cash-register', [ReportController::class, 'cashRegister'])->name('cash-register');
+        Route::get('activity-log', [ReportController::class, 'activityLog'])->name('activity-log');
     });
 
     // Business Settings
