@@ -35,6 +35,10 @@ class HandleInertiaRequests extends Middleware
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'settings' => $request->user() ? Setting::getAll() : [],
+            'branding' => [
+                'logo' => Setting::getValue('branding_logo'),
+                'favicon' => Setting::getValue('branding_favicon'),
+            ],
             'branches' => $request->user() ? Branch::where('is_active', true)->orderBy('name')->get() : [],
             'currentBranch' => $request->user() && session('branch_id')
                 ? Branch::find(session('branch_id'))

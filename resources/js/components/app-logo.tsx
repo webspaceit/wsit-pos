@@ -4,8 +4,8 @@ import AppLogoIcon from '@/components/app-logo-icon';
 
 export default function AppLogo() {
     const { name } = usePage().props;
-    const settings = (usePage().props as any).settings as Record<string, Record<string, string>> | undefined;
-    const logoPath = settings?.branding?.branding_logo;
+    const { branding } = usePage().props as { branding?: { logo?: string | null } };
+    const logoPath = branding?.logo;
 
     return (
         <>
