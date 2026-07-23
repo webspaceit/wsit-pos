@@ -148,7 +148,7 @@ export function AppSidebar() {
                 </SidebarMenu>
             </SidebarHeader>
 
-            <SidebarContent>
+            <SidebarContent className="overflow-x-hidden">
                 {/* Dashboard */}
                 <SidebarGroup>
                     <NavMain items={[{ title: 'Dashboard', href: dashboard(), icon: LayoutGrid }]} />
