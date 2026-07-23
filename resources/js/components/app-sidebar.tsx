@@ -4,6 +4,7 @@ import {
     Building2,
     Calculator,
     CreditCard,
+    CreditCard as CollectIcon,
     DollarSign,
     LayoutGrid,
     Package,
@@ -20,15 +21,14 @@ import {
     Zap,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
-import { GroupLabel } from '@/components/group-label';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
+import { SitemapGroupLabel } from '@/components/sitemap-group-label';
 import {
     Sidebar,
     SidebarContent,
     SidebarFooter,
     SidebarGroup,
-    SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
@@ -40,88 +40,50 @@ import { useCurrentUrl } from '@/hooks/use-current-url';
 import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
 
-const salesNavItems: NavItem[] = [
+const allSections = [
     {
         title: 'Sales',
-        href: '/sales',
         icon: TrendingUp,
+        items: [
+            { title: 'Sales', href: '/sales', icon: TrendingUp },
+            { title: 'Due Collection', href: '/due-collections', icon: CollectIcon },
+        ],
     },
     {
-        title: 'Due Collection',
-        href: '/due-collections',
-        icon: CreditCard,
-    },
-];
-
-const inventoryNavItems: NavItem[] = [
-    {
-        title: 'Products',
-        href: '/products',
+        title: 'Inventory',
         icon: Package,
+        items: [
+            { title: 'Products', href: '/products', icon: Package },
+            { title: 'Categories', href: '/categories', icon: Tag },
+            { title: 'Units', href: '/units', icon: Calculator },
+            { title: 'Stock', href: '/stock', icon: Warehouse },
+        ],
     },
     {
-        title: 'Categories',
-        href: '/categories',
-        icon: Tag,
-    },
-    {
-        title: 'Units',
-        href: '/units',
-        icon: Calculator,
-    },
-    {
-        title: 'Stock',
-        href: '/stock',
-        icon: Warehouse,
-    },
-];
-
-const purchaseNavItems: NavItem[] = [
-    {
-        title: 'Purchases',
-        href: '/purchases',
-        icon: ShoppingCart,
-    },
-    {
-        title: 'Suppliers',
-        href: '/suppliers',
+        title: 'Purchasing',
         icon: Truck,
-    },
-];
-
-const financeNavItems: NavItem[] = [
-    {
-        title: 'Customers',
-        href: '/customers',
-        icon: Users,
+        items: [
+            { title: 'Purchases', href: '/purchases', icon: ShoppingCart },
+            { title: 'Suppliers', href: '/suppliers', icon: Truck },
+        ],
     },
     {
-        title: 'Expenses',
-        href: '/expenses',
-        icon: TrendingDown,
-    },
-];
-
-const adminNavItems: NavItem[] = [
-    {
-        title: 'Reports',
-        href: '/reports',
-        icon: BarChart3,
+        title: 'Finance',
+        icon: DollarSign,
+        items: [
+            { title: 'Customers', href: '/customers', icon: Users },
+            { title: 'Expenses', href: '/expenses', icon: TrendingDown },
+        ],
     },
     {
-        title: 'Branches',
-        href: '/branches',
-        icon: Building2,
-    },
-    {
-        title: 'Users',
-        href: '/users',
+        title: 'Administration',
         icon: ShieldCheck,
-    },
-    {
-        title: 'Landing Page',
-        href: '/settings/landing-page',
-        icon: Settings,
+        items: [
+            { title: 'Reports', href: '/reports', icon: BarChart3 },
+            { title: 'Branches', href: '/branches', icon: Building2 },
+            { title: 'Users', href: '/users', icon: ShieldCheck },
+            { title: 'Landing Page', href: '/settings/landing-page', icon: Settings },
+        ],
     },
 ];
 
@@ -133,6 +95,10 @@ export function AppSidebar() {
     const { isCurrentUrl } = useCurrentUrl();
     const { state } = useSidebar();
     const isCollapsed = state === 'collapsed';
+
+    const visibleSections = allSections.filter(
+        (s) => s.title !== 'Administration' || isAdmin || isManager,
+    );
 
     return (
         <Sidebar collapsible="icon" variant="inset">
@@ -158,10 +124,6 @@ export function AppSidebar() {
 
                 {/* POS Terminal — highlighted */}
                 <SidebarGroup>
-                    <SidebarGroupLabel className="gap-2 text-xs font-bold uppercase tracking-widest text-brand dark:text-brand-400">
-                        <Zap className="h-4 w-4" />
-                        {!isCollapsed && 'Quick Action'}
-                    </SidebarGroupLabel>
                     <SidebarMenu>
                         <SidebarMenuItem>
                             <SidebarMenuButton
@@ -181,41 +143,14 @@ export function AppSidebar() {
 
                 <SidebarSeparator />
 
-                {/* Sales */}
+                {/* Quick Action — sitemap flyout */}
                 <SidebarGroup>
-                    <GroupLabel icon={TrendingUp} items={salesNavItems}>Sales</GroupLabel>
+                    <SitemapGroupLabel
+                        icon={Menu}
+                        label="Quick Action"
+                        sections={visibleSections}
+                    />
                 </SidebarGroup>
-
-                <SidebarSeparator />
-
-                {/* Inventory */}
-                <SidebarGroup>
-                    <GroupLabel icon={Package} items={inventoryNavItems}>Inventory</GroupLabel>
-                </SidebarGroup>
-
-                <SidebarSeparator />
-
-                {/* Purchasing */}
-                <SidebarGroup>
-                    <GroupLabel icon={Truck} items={purchaseNavItems}>Purchasing</GroupLabel>
-                </SidebarGroup>
-
-                <SidebarSeparator />
-
-                {/* Finance */}
-                <SidebarGroup>
-                    <GroupLabel icon={DollarSign} items={financeNavItems}>Finance</GroupLabel>
-                </SidebarGroup>
-
-                {/* Administration — admin/manager only */}
-                {(isAdmin || isManager) && (
-                    <>
-                        <SidebarSeparator />
-                        <SidebarGroup>
-                            <GroupLabel icon={ShieldCheck} items={adminNavItems}>Administration</GroupLabel>
-                        </SidebarGroup>
-                    </>
-                )}
             </SidebarContent>
 
             <SidebarFooter>
