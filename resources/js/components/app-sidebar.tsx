@@ -126,8 +126,8 @@ const adminNavItems: NavItem[] = [
 
 function GroupLabel({ icon: Icon, children }: { icon: React.ElementType; children: React.ReactNode }) {
     return (
-        <SidebarGroupLabel className="gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/70">
-            <Icon className="h-3.5 w-3.5" />
+        <SidebarGroupLabel className="gap-2 text-xs font-bold uppercase tracking-widest text-brand dark:text-brand-400">
+            <Icon className="h-4 w-4" />
             {children}
         </SidebarGroupLabel>
     );
