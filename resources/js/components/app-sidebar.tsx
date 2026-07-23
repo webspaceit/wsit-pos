@@ -7,6 +7,7 @@ import {
     CreditCard as CollectIcon,
     DollarSign,
     LayoutGrid,
+    Menu,
     Package,
     Settings,
     ShieldCheck,
