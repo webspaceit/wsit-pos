@@ -1,5 +1,6 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { login } from '@/routes';
+import { useState } from 'react';
 
 interface Feature {
     icon: string;
@@ -22,10 +23,25 @@ interface Testimonial {
     text: string;
 }
 
+interface Stat {
+    value: string;
+    label: string;
+}
+
+interface Faq {
+    question: string;
+    answer: string;
+}
+
 interface LandingData {
     hero_title: string;
     hero_subtitle: string;
     hero_cta_text: string;
+    stats_title: string;
+    stats_subtitle: string;
+    stats: Stat[];
+    logos_title: string;
+    logos: string[];
     features_title: string;
     features_subtitle: string;
     features: Feature[];
@@ -34,10 +50,28 @@ interface LandingData {
     pricing: PricingPlan[];
     testimonials_title: string;
     testimonials: Testimonial[];
+    faq_title: string;
+    faq_subtitle: string;
+    faq: Faq[];
     cta_title: string;
     cta_subtitle: string;
     cta_button_text: string;
     footer_text: string;
+}
+
+function FaqItem({ faq }: { faq: Faq }) {
+    const [open, setOpen] = useState(false);
+    return (
+        <div className="border-b border-gray-200 py-5">
+            <button onClick={() => setOpen(!open)} className="flex w-full items-center justify-between text-left">
+                <span className="text-base font-medium text-gray-900">{faq.question}</span>
+                <svg className={`h-5 w-5 shrink-0 text-gray-500 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+            </button>
+            {open && <p className="mt-3 text-sm leading-6 text-gray-600">{faq.answer}</p>}
+        </div>
+    );
 }
 
 export default function Welcome() {
@@ -66,6 +100,9 @@ export default function Welcome() {
                             </a>
                             <a href="#testimonials" className="text-sm font-medium text-gray-600 hover:text-gray-900">
                                 Testimonials
+                            </a>
+                            <a href="#faq" className="text-sm font-medium text-gray-600 hover:text-gray-900">
+                                FAQ
                             </a>
                         </div>
                         <div className="flex items-center gap-3">
@@ -186,6 +223,41 @@ export default function Welcome() {
                     </div>
                 </section>
 
+                {/* Stats Section */}
+                <section className="py-16 border-b border-gray-100">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <div className="text-center mb-12">
+                            <h2 className="text-2xl font-bold tracking-tight text-gray-900">{l.stats_title}</h2>
+                            <p className="mt-2 text-base text-gray-600">{l.stats_subtitle}</p>
+                        </div>
+                        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+                            {l.stats?.map((stat, i) => (
+                                <div key={i} className="text-center">
+                                    <div className="text-3xl font-bold text-brand sm:text-4xl">{stat.value}</div>
+                                    <div className="mt-2 text-sm text-gray-600">{stat.label}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* Logos Section */}
+                <section className="py-16 bg-gray-50">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <p className="text-center text-sm font-medium uppercase tracking-widest text-gray-500">{l.logos_title}</p>
+                        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
+                            {l.logos?.map((logo) => (
+                                <div key={logo} className="flex items-center gap-2 text-xl font-bold text-gray-300 transition hover:text-gray-500">
+                                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-200 text-sm text-gray-500">
+                                        {logo[0]}
+                                    </div>
+                                    {logo}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
                 {/* Features Section */}
                 <section id="features" className="py-20">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -292,6 +364,21 @@ export default function Welcome() {
                                         </div>
                                     </div>
                                 </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* FAQ Section */}
+                <section id="faq" className="bg-gray-50 py-20">
+                    <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+                        <div className="text-center">
+                            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{l.faq_title}</h2>
+                            <p className="mx-auto mt-3 max-w-2xl text-lg text-gray-600">{l.faq_subtitle}</p>
+                        </div>
+                        <div className="mt-12 divide-y divide-gray-200">
+                            {l.faq?.map((faq, i) => (
+                                <FaqItem key={i} faq={faq} />
                             ))}
                         </div>
                     </div>

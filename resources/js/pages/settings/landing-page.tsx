@@ -22,6 +22,16 @@ interface Testimonial {
     text: string;
 }
 
+interface Stat {
+    value: string;
+    label: string;
+}
+
+interface Faq {
+    question: string;
+    answer: string;
+}
+
 interface Props {
     landing: Record<string, string>;
 }
@@ -31,6 +41,11 @@ export default function LandingPageSettings({ landing }: Props) {
         hero_title: landing.hero_title || '',
         hero_subtitle: landing.hero_subtitle || '',
         hero_cta_text: landing.hero_cta_text || '',
+        stats_title: landing.stats_title || '',
+        stats_subtitle: landing.stats_subtitle || '',
+        stats: (typeof landing.stats === 'string' ? JSON.parse(landing.stats) : landing.stats || []) as Stat[],
+        logos_title: landing.logos_title || '',
+        logos: (typeof landing.logos === 'string' ? JSON.parse(landing.logos) : landing.logos || []) as string[],
         features_title: landing.features_title || '',
         features_subtitle: landing.features_subtitle || '',
         features: (typeof landing.features === 'string' ? JSON.parse(landing.features) : landing.features || []) as Feature[],
@@ -39,6 +54,9 @@ export default function LandingPageSettings({ landing }: Props) {
         pricing: (typeof landing.pricing === 'string' ? JSON.parse(landing.pricing) : landing.pricing || []) as PricingPlan[],
         testimonials_title: landing.testimonials_title || '',
         testimonials: (typeof landing.testimonials === 'string' ? JSON.parse(landing.testimonials) : landing.testimonials || []) as Testimonial[],
+        faq_title: landing.faq_title || '',
+        faq_subtitle: landing.faq_subtitle || '',
+        faq: (typeof landing.faq === 'string' ? JSON.parse(landing.faq) : landing.faq || []) as Faq[],
         cta_title: landing.cta_title || '',
         cta_subtitle: landing.cta_subtitle || '',
         cta_button_text: landing.cta_button_text || '',
@@ -98,6 +116,48 @@ export default function LandingPageSettings({ landing }: Props) {
         setData('testimonials', data.testimonials.filter((_, i) => i !== index));
     };
 
+    const updateStat = (index: number, field: keyof Stat, value: string) => {
+        const updated = [...data.stats];
+        updated[index] = { ...updated[index], [field]: value };
+        setData('stats', updated);
+    };
+
+    const addStat = () => {
+        setData('stats', [...data.stats, { value: '', label: '' }]);
+    };
+
+    const removeStat = (index: number) => {
+        setData('stats', data.stats.filter((_, i) => i !== index));
+    };
+
+    const updateLogo = (index: number, value: string) => {
+        const updated = [...data.logos];
+        updated[index] = value;
+        setData('logos', updated);
+    };
+
+    const addLogo = () => {
+        setData('logos', [...data.logos, '']);
+    };
+
+    const removeLogo = (index: number) => {
+        setData('logos', data.logos.filter((_, i) => i !== index));
+    };
+
+    const updateFaq = (index: number, field: keyof Faq, value: string) => {
+        const updated = [...data.faq];
+        updated[index] = { ...updated[index], [field]: value };
+        setData('faq', updated);
+    };
+
+    const addFaq = () => {
+        setData('faq', [...data.faq, { question: '', answer: '' }]);
+    };
+
+    const removeFaq = (index: number) => {
+        setData('faq', data.faq.filter((_, i) => i !== index));
+    };
+
     return (
         <AppLayout breadcrumbs={[{ title: 'Settings', href: '/settings' }, { title: 'Landing Page', href: '/settings/landing-page' }]}>
             <Head title="Landing Page Settings" />
@@ -110,6 +170,40 @@ export default function LandingPageSettings({ landing }: Props) {
                         <Field label="Title" value={data.hero_title} onChange={(v) => setData('hero_title', v)} error={errors.hero_title} />
                         <Textarea label="Subtitle" value={data.hero_subtitle} onChange={(v) => setData('hero_subtitle', v)} error={errors.hero_subtitle} />
                         <Field label="CTA Button Text" value={data.hero_cta_text} onChange={(v) => setData('hero_cta_text', v)} />
+                    </section>
+
+                    {/* Stats Section */}
+                    <section className="rounded-xl border p-6 space-y-4">
+                        <h3 className="font-semibold text-lg border-b pb-2">Stats Section</h3>
+                        <Field label="Section Title" value={data.stats_title} onChange={(v) => setData('stats_title', v)} />
+                        <Field label="Section Subtitle" value={data.stats_subtitle} onChange={(v) => setData('stats_subtitle', v)} />
+
+                        <div className="space-y-3 mt-4">
+                            {data.stats.map((stat, i) => (
+                                <div key={i} className="flex items-center gap-3 rounded-lg bg-gray-50 p-3">
+                                    <input type="text" value={stat.value} onChange={(e) => updateStat(i, 'value', e.target.value)} placeholder="Value (e.g. 2,500+)" className="flex-1 rounded-md border px-3 py-2 text-sm" />
+                                    <input type="text" value={stat.label} onChange={(e) => updateStat(i, 'label', e.target.value)} placeholder="Label (e.g. Active Businesses)" className="flex-1 rounded-md border px-3 py-2 text-sm" />
+                                    <button type="button" onClick={() => removeStat(i)} className="text-xs text-red-600 hover:text-red-800">Remove</button>
+                                </div>
+                            ))}
+                        </div>
+                        <button type="button" onClick={addStat} className="text-sm text-brand hover:text-brand-dark font-medium">+ Add Stat</button>
+                    </section>
+
+                    {/* Logos Section */}
+                    <section className="rounded-xl border p-6 space-y-4">
+                        <h3 className="font-semibold text-lg border-b pb-2">Trusted Brands / Logos</h3>
+                        <Field label="Section Title" value={data.logos_title} onChange={(v) => setData('logos_title', v)} />
+
+                        <div className="space-y-3 mt-4">
+                            {data.logos.map((logo, i) => (
+                                <div key={i} className="flex items-center gap-3 rounded-lg bg-gray-50 p-3">
+                                    <input type="text" value={logo} onChange={(e) => updateLogo(i, e.target.value)} placeholder="Brand name (e.g. Shwapno)" className="flex-1 rounded-md border px-3 py-2 text-sm" />
+                                    <button type="button" onClick={() => removeLogo(i)} className="text-xs text-red-600 hover:text-red-800">Remove</button>
+                                </div>
+                            ))}
+                        </div>
+                        <button type="button" onClick={addLogo} className="text-sm text-brand hover:text-brand-dark font-medium">+ Add Brand</button>
                     </section>
 
                     {/* Features Section */}
@@ -133,7 +227,7 @@ export default function LandingPageSettings({ landing }: Props) {
                                 </div>
                             ))}
                         </div>
-                        <button type="button" onClick={addFeature} className="text-sm text-indigo-600 hover:text-indigo-800 font-medium">+ Add Feature</button>
+                        <button type="button" onClick={addFeature} className="text-sm text-brand hover:text-brand-dark font-medium">+ Add Feature</button>
                     </section>
 
                     {/* Pricing Section */}
@@ -165,7 +259,7 @@ export default function LandingPageSettings({ landing }: Props) {
                                 </div>
                             ))}
                         </div>
-                        <button type="button" onClick={addPlan} className="text-sm text-indigo-600 hover:text-indigo-800 font-medium">+ Add Plan</button>
+                        <button type="button" onClick={addPlan} className="text-sm text-brand hover:text-brand-dark font-medium">+ Add Plan</button>
                     </section>
 
                     {/* Testimonials Section */}
@@ -188,7 +282,28 @@ export default function LandingPageSettings({ landing }: Props) {
                                 </div>
                             ))}
                         </div>
-                        <button type="button" onClick={addTestimonial} className="text-sm text-indigo-600 hover:text-indigo-800 font-medium">+ Add Testimonial</button>
+                        <button type="button" onClick={addTestimonial} className="text-sm text-brand hover:text-brand-dark font-medium">+ Add Testimonial</button>
+                    </section>
+
+                    {/* FAQ Section */}
+                    <section className="rounded-xl border p-6 space-y-4">
+                        <h3 className="font-semibold text-lg border-b pb-2">FAQ Section</h3>
+                        <Field label="Section Title" value={data.faq_title} onChange={(v) => setData('faq_title', v)} />
+                        <Field label="Section Subtitle" value={data.faq_subtitle} onChange={(v) => setData('faq_subtitle', v)} />
+
+                        <div className="space-y-4 mt-4">
+                            {data.faq.map((item, i) => (
+                                <div key={i} className="rounded-lg bg-gray-50 p-4 space-y-3">
+                                    <div className="flex items-center justify-between">
+                                        <span className="font-medium text-sm">FAQ {i + 1}</span>
+                                        <button type="button" onClick={() => removeFaq(i)} className="text-xs text-red-600 hover:text-red-800">Remove</button>
+                                    </div>
+                                    <Field label="Question" value={item.question} onChange={(v) => updateFaq(i, 'question', v)} />
+                                    <Textarea label="Answer" value={item.answer} onChange={(v) => updateFaq(i, 'answer', v)} />
+                                </div>
+                            ))}
+                        </div>
+                        <button type="button" onClick={addFaq} className="text-sm text-brand hover:text-brand-dark font-medium">+ Add FAQ</button>
                     </section>
 
                     {/* CTA Section */}
@@ -206,7 +321,7 @@ export default function LandingPageSettings({ landing }: Props) {
                     </section>
 
                     <div className="flex justify-end pt-4 pb-8">
-                        <button type="submit" disabled={processing} className="rounded-md bg-indigo-600 px-6 py-2 text-sm text-white font-semibold hover:bg-indigo-700 disabled:opacity-50">
+                        <button type="submit" disabled={processing} className="rounded-md bg-brand px-6 py-2 text-sm text-white font-semibold hover:bg-brand-dark disabled:opacity-50">
                             {processing ? 'Saving...' : 'Save Landing Page'}
                         </button>
                     </div>
