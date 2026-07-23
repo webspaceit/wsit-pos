@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react';
 import { ChevronRight } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { useSidebar } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
@@ -17,18 +17,24 @@ export function GroupLabel({
 }) {
     const [open, setOpen] = useState(false);
     const [top, setTop] = useState(0);
+    const [openUp, setOpenUp] = useState(false);
     const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
     const labelRef = useRef<HTMLDivElement>(null);
+    const flyoutRef = useRef<HTMLDivElement>(null);
     const { state } = useSidebar();
     const { isCurrentUrl } = useCurrentUrl();
     const isCollapsed = state === 'collapsed';
     const hasItems = items.length > 0;
 
+    const FLYOUT_HEIGHT = 320;
+
     const handleEnter = () => {
         clearTimeout(timeoutRef.current!);
         if (labelRef.current) {
             const rect = labelRef.current.getBoundingClientRect();
+            const viewportH = window.innerHeight;
             setTop(rect.top);
+            setOpenUp(rect.bottom + FLYOUT_HEIGHT > viewportH);
         }
         if (isCollapsed || hasItems) {
             setOpen(true);
@@ -38,6 +44,13 @@ export function GroupLabel({
     const handleLeave = () => {
         timeoutRef.current = setTimeout(() => setOpen(false), 150);
     };
+
+    useEffect(() => {
+        return () => { clearTimeout(timeoutRef.current!); };
+    }, []);
+
+    const flyoutTop = openUp ? undefined : `${top}px`;
+    const flyoutBottom = openUp ? `${window.innerHeight - top - 32}px` : undefined;
 
     return (
         <div
@@ -67,19 +80,24 @@ export function GroupLabel({
             {/* Flyout submenu — only in expanded mode */}
             {open && hasItems && !isCollapsed && (
                 <div
+                    ref={flyoutRef}
                     className={cn(
                         'fixed z-50 min-w-[200px] rounded-xl border border-border bg-popover p-1.5 shadow-xl',
                         'animate-in fade-in slide-in-from-left-2 duration-150',
                     )}
                     style={{
-                        top: `${top}px`,
+                        top: flyoutTop,
+                        bottom: flyoutBottom,
                         left: 'var(--sidebar-width)',
                     }}
                     onMouseEnter={handleEnter}
                     onMouseLeave={handleLeave}
                 >
                     {/* Arrow */}
-                    <div className="absolute top-4 -left-2 h-4 w-4 rotate-45 border-l border-b border-border bg-popover" />
+                    <div className={cn(
+                        "absolute -left-2 h-4 w-4 rotate-45 border-l border-b border-border bg-popover",
+                        openUp ? "bottom-4" : "top-4"
+                    )} />
 
                     <div className="relative">
                         <div className="mb-1 flex items-center gap-2 px-2 py-1.5">
