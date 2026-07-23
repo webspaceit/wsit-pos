@@ -1,8 +1,5 @@
-import { Head, setLayoutProps, useForm } from '@inertiajs/react';
-import type { ReactNode } from 'react';
-import Heading from '@/components/heading';
+import { Head, useForm } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
-import SettingsLayout from '@/layouts/settings/layout';
 
 interface Feature {
     icon: string;
@@ -45,10 +42,6 @@ interface Props {
 }
 
 export default function LandingPageSettings({ landing }: Props) {
-    setLayoutProps({
-        breadcrumbs: [{ title: 'Landing Page settings', href: '/settings/landing-page' }],
-    });
-
     const { data, setData, put, processing, errors } = useForm({
         logo_text: landing.logo_text || '',
         nav_links: (typeof landing.nav_links === 'string' ? JSON.parse(landing.nav_links) : landing.nav_links || []) as NavLink[],
@@ -153,17 +146,11 @@ export default function LandingPageSettings({ landing }: Props) {
     const removeFaq = (index: number) => setData('faq', data.faq.filter((_, i) => i !== index));
 
     return (
-        <>
+        <AppLayout breadcrumbs={[{ title: 'Settings', href: '/settings' }, { title: 'Landing Page', href: '/settings/landing-page' }]}>
             <Head title="Landing Page Settings" />
-
-            <h1 className="sr-only">Landing page settings</h1>
-
-            <div className="space-y-6">
-                <Heading
-                    variant="small"
-                    title="Landing Page"
-                    description="Manage the content displayed on the public landing page"
-                />
+            <div className="p-4 max-w-4xl space-y-4">
+                <h1 className="text-lg font-semibold">Landing Page</h1>
+                <p className="text-sm text-muted-foreground">Manage the content displayed on the public landing page</p>
 
                 <form onSubmit={submit} className="space-y-6">
                     {/* Navigation Section */}
@@ -359,15 +346,9 @@ export default function LandingPageSettings({ landing }: Props) {
                     </div>
                 </form>
             </div>
-        </>
+        </AppLayout>
     );
 }
-
-LandingPageSettings.layout = (page: ReactNode) => (
-    <AppLayout>
-        <SettingsLayout wide>{page}</SettingsLayout>
-    </AppLayout>
-);
 
 function Field({
     label,

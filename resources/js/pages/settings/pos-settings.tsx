@@ -1,9 +1,6 @@
-import { Head, useForm, setLayoutProps } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import { useState } from 'react';
-import type { ReactNode } from 'react';
-import Heading from '@/components/heading';
 import AppLayout from '@/layouts/app-layout';
-import SettingsLayout from '@/layouts/settings/layout';
 
 interface Props { settings: Record<string, Record<string, string>> }
 
@@ -17,53 +14,28 @@ const TABS: { key: Tab; label: string }[] = [
 ];
 
 export default function PosSettings({ settings }: Props) {
-    setLayoutProps({
-        breadcrumbs: [{ title: 'Settings', href: '/settings' }, { title: 'POS Settings', href: '/settings/pos-settings' }],
-    });
-
     const [tab, setTab] = useState<Tab>('barcode');
     const s = settings;
 
     return (
-        <>
+        <AppLayout breadcrumbs={[{ title: 'Settings', href: '/settings' }, { title: 'POS Settings', href: '/settings/pos-settings' }]}>
             <Head title="POS Settings" />
-
-            <h1 className="sr-only">POS settings</h1>
-
-            <div className="space-y-6">
-                <Heading
-                    variant="small"
-                    title="POS Settings"
-                    description="Configure barcode, invoice, POS terminal, mail, and SMS settings"
-                />
-
+            <div className="p-4 max-w-3xl space-y-4">
+                <h1 className="text-lg font-semibold">POS Settings</h1>
                 <div className="flex gap-1 border-b">
                     {TABS.map((t) => (
-                        <button
-                            key={t.key}
-                            onClick={() => setTab(t.key)}
-                            className={`px-4 py-2 text-sm font-medium border-b-2 transition ${tab === t.key ? 'border-brand text-brand' : 'border-transparent text-muted-foreground hover:text-foreground'}`}
-                        >
-                            {t.label}
-                        </button>
+                        <button key={t.key} onClick={() => setTab(t.key)} className={`px-4 py-2 text-sm font-medium border-b-2 transition ${tab === t.key ? 'border-brand text-brand' : 'border-transparent text-muted-foreground hover:text-foreground'}`}>{t.label}</button>
                     ))}
                 </div>
-
                 {tab === 'barcode' && <BarcodeTab defaults={s.barcode} />}
                 {tab === 'invoice' && <InvoiceTab defaults={s.invoice} />}
                 {tab === 'pos' && <PosTab defaults={s.pos} />}
                 {tab === 'mail' && <MailTab defaults={s.mail} />}
                 {tab === 'sms' && <SmsTab defaults={s.sms} />}
             </div>
-        </>
+        </AppLayout>
     );
 }
-
-PosSettings.layout = (page: ReactNode) => (
-    <AppLayout>
-        <SettingsLayout wide>{page}</SettingsLayout>
-    </AppLayout>
-);
 
 function BarcodeTab({ defaults }: { defaults: Record<string, string> }) {
     const { data, setData, post, processing } = useForm({ group: 'barcode', prefix: defaults.prefix || 'PRD', length: defaults.length || '13', type: defaults.type || 'EAN13' });

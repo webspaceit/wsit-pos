@@ -31,16 +31,6 @@ const sidebarNavItems: NavItem[] = [
         href: '/settings/business',
         icon: null,
     },
-    {
-        title: 'POS Settings',
-        href: '/settings/pos-settings',
-        icon: null,
-    },
-    {
-        title: 'Landing Page',
-        href: '/settings/landing-page',
-        icon: null,
-    },
 ];
 
 export default function SettingsLayout({ children, wide = false }: PropsWithChildren<{ wide?: boolean }>) {
