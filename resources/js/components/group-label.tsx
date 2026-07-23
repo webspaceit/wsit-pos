@@ -48,12 +48,12 @@ export function GroupLabel({
         >
             <div
                 className={cn(
-                    'flex h-8 shrink-0 cursor-pointer items-center gap-2 rounded-md px-2 text-xs font-bold uppercase tracking-widest transition-colors',
+                    'flex h-6 shrink-0 cursor-pointer items-center gap-1.5 rounded-md px-1.5 text-[10px] font-bold uppercase tracking-widest transition-colors',
                     'text-brand hover:bg-brand/10 dark:text-brand-400 dark:hover:bg-brand/20',
                     isCollapsed && 'justify-center px-0',
                 )}
             >
-                <Icon className="h-4 w-4 shrink-0" />
+                <Icon className="h-3 w-3 shrink-0" />
                 {!isCollapsed && (
                     <>
                         <span className="flex-1 truncate">{children}</span>
@@ -79,12 +79,12 @@ export function GroupLabel({
                     onMouseLeave={handleLeave}
                 >
                     {/* Arrow */}
-                    <div className="absolute top-4 -left-2 h-4 w-4 rotate-45 border-l border-b border-border bg-popover" />
+                    <div className="absolute top-3 -left-2 h-3 w-3 rotate-45 border-l border-b border-border bg-popover" />
 
                     <div className="relative">
-                        <div className="mb-1 flex items-center gap-2 px-2 py-1.5">
-                            <Icon className="h-4 w-4 text-brand dark:text-brand-400" />
-                            <span className="text-sm font-semibold text-foreground">
+                        <div className="mb-0.5 flex items-center gap-2 px-2 py-1">
+                            <Icon className="h-3.5 w-3.5 text-brand dark:text-brand-400" />
+                            <span className="text-xs font-semibold text-foreground">
                                 {children}
                             </span>
                         </div>
@@ -94,7 +94,7 @@ export function GroupLabel({
                                 key={item.title}
                                 href={item.href}
                                 className={cn(
-                                    'flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors',
+                                    'flex items-center gap-2 rounded-md px-2 py-1.5 text-xs transition-colors',
                                     'hover:bg-brand/10 hover:text-brand',
                                     'dark:hover:bg-brand/20 dark:hover:text-brand-400',
                                     isCurrentUrl(item.href)
@@ -103,7 +103,7 @@ export function GroupLabel({
                                 )}
                                 prefetch
                             >
-                                {item.icon && <item.icon className="h-4 w-4 shrink-0" />}
+                                {item.icon && <item.icon className="h-3.5 w-3.5 shrink-0" />}
                                 <span>{item.title}</span>
                             </Link>
                         ))}

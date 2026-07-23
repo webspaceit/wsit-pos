@@ -165,3 +165,28 @@
         @apply bg-brand/20 text-brand-400;
     }
 }
+
+/* Compact sidebar */
+[data-sidebar="content"] {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(0.439 0 0) transparent;
+}
+
+[data-sidebar="content"]::-webkit-scrollbar {
+    width: 4px;
+}
+
+[data-sidebar="content"]::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+[data-sidebar="content"]::-webkit-scrollbar-thumb {
+    background-color: oklch(0.439 0 0);
+    border-radius: 2px;
+}
+
+/* Reduce sidebar separator height */
+[data-sidebar="separator"] {
+    margin: 2px 8px;
+    height: 1px;
+}

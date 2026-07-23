@@ -17,6 +17,7 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                     <SidebarMenuButton
                         asChild
                         isActive={isCurrentUrl(item.href)}
+                        size="sm"
                         className="data-[active=true]:bg-brand/10 data-[active=true]:text-brand data-[active=true]:font-medium dark:data-[active=true]:bg-brand/20 dark:data-[active=true]:text-brand-400"
                         tooltip={{ children: item.title }}
                     >
