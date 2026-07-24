@@ -417,7 +417,7 @@ export default function Welcome() {
                                 </div>
                                 <span className="text-sm font-semibold text-gray-900">{l.footer_text}</span>
                             </div>
-                            <p className="text-sm text-gray-400">{l.footer_copyright}</p>
+                            <p className="text-sm text-gray-400" dangerouslySetInnerHTML={{ __html: l.footer_copyright }} />
                         </div>
                     </div>
                 </footer>
